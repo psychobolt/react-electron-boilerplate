@@ -5,7 +5,7 @@ import url from 'url';
 
 import menu from './menu';
 
-const store = new Store();
+const electronStore = new Store();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -14,8 +14,8 @@ let win;
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: store.get('window.size.width', 800),
-    height: store.get('window.size.height', 600),
+    width: electronStore.get('window.size.width', 800),
+    height: electronStore.get('window.size.height', 600),
     webPreferences: {
       nodeIntegration: true,
     },
@@ -40,7 +40,7 @@ function createWindow() {
 
   win.on('resize', () => {
     const [width, height] = win.getSize();
-    store.set({
+    electronStore.set({
       window: {
         size: {
           width,
