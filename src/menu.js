@@ -75,7 +75,7 @@ export default (win, store) => {
 
   const menu = Menu.buildFromTemplate(template);
 
-  const [undoTodoItem, redoTodoItem] = menu.items[process.platform === 'darwin' ? 3 : 1].submenu.items;
+  const [undoTodoItem, redoTodoItem] = menu.items[process.platform === 'darwin' ? 3 : 2].submenu.items;
   store.subscribe(() => {
     const state = store.getState();
     undoTodoItem.enabled = state.todos.past.length > 0;

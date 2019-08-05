@@ -1,7 +1,7 @@
 import { addTodo } from '../TodoForm';
+import { toggleTodo, deleteTodo } from '../TodoItem';
 import { todosReducer } from '../TodoList.reducers';
 import initialState from '../TodoList.state';
-import { toggleTodo } from '../TodoList.actions';
 
 describe('Todos reducer', () => {
   it('should return default state', () => {
@@ -33,5 +33,14 @@ describe('Todos reducer', () => {
       ...activeItem,
       completed: !activeItem.completed,
     }, completedItem]);
+  });
+
+  it('should delete todo', () => {
+    const id = 0;
+    const action = deleteTodo(id);
+    const item = {
+      id,
+    };
+    expect(todosReducer([item], action)).toEqual([]);
   });
 });

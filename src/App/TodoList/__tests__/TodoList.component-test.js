@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import TodoList from '../TodoList.component';
 
@@ -34,20 +34,5 @@ describe('components <TodoList />', () => {
       onTodoClick: jest.fn(),
     };
     shallow(<TodoList {...props} />);
-  });
-
-  it('TodoList should call callback on item click', () => {
-    const props = {
-      todos: [{
-        id: 1,
-        completed: false,
-        text: 'TodoItem',
-      }],
-      onTodoClick: jest.fn(),
-    };
-    const wrapper = mount(<TodoList {...props} />);
-    wrapper.find('x-checkbox').first().simulate('click');
-    const { onTodoClick } = props;
-    expect(onTodoClick.mock.calls.length).toBe(1);
   });
 });

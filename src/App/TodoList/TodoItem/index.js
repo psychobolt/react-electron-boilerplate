@@ -5,4 +5,5 @@ export type Todo = {
   text: string
 };
 
-export { default } from './TodoItem.component';
+export * from './TodoItem.actions';
+export { default } from './TodoItem.container';
