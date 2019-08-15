@@ -1,9 +1,12 @@
 import { app, BrowserWindow, Menu } from 'electron';
 import Store from 'electron-store';
+import log from 'electron-log';
 import path from 'path';
 import url from 'url';
 
 import menu from './menu';
+
+log.catchErrors();
 
 const electronStore = new Store();
 

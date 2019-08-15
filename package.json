@@ -134,6 +134,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
+    "electron-log": "^3.0.7",
     "electron-store": "^4.0.0"
   }
 }
