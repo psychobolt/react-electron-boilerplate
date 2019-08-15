@@ -1,6 +1,7 @@
 import { app, BrowserWindow, Menu } from 'electron';
 import { forwardToRenderer, replayActionMain } from 'electron-redux';
 import Store from 'electron-store';
+import log from 'electron-log';
 import { combineReducers } from 'redux';
 import path from 'path';
 import url from 'url';
@@ -9,6 +10,8 @@ import initialState from './App/TodoList/TodoList.state';
 import reducers from './App/TodoList/TodoList.reducers';
 import configureStore from './shared/store';
 import menu from './menu';
+
+log.catchErrors();
 
 const electronStore = new Store();
 
