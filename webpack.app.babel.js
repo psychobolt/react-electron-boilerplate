@@ -83,7 +83,8 @@ if (devMode) {
     ],
   });
 } else {
-  htmlConfig = Object.assign({}, htmlConfig, {
+  htmlConfig = {
+    ...htmlConfig,
     minify: {
       collapseBooleanAttributes: true,
       decodeEntities: true,
@@ -100,7 +101,7 @@ if (devMode) {
       trimCustomFragments: true,
       useShortDoctype: true,
     },
-  });
+  };
   config = merge(config, {
     plugins: [
       new CleanWebpackPlugin({
