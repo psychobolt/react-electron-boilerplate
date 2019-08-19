@@ -10,8 +10,8 @@
       "windows": {
         "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
       },
-      "args": ["src"],
-      "program": "${workspaceRoot}/src/main.js",
+      "args": ["."],
+      "outputCapture": "std",
       "outFiles": [
         "${workspaceRoot}/src/.build/main.bundle.js"
       ],
