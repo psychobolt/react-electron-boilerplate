@@ -22,7 +22,8 @@ A minimalistic Electron boilerplate based on the official [first-app](https://el
 - e2e runner: [Spectron](https://electron.atom.io/spectron/) + [EVA](https://github.com/avajs/ava)
 - Code Coverage reporter: [Codecov](https://codecov.io/)
 - ES Linting: [ESLint](http://eslint.org/) using [AirBnb style guide](https://github.com/airbnb/javascript)
-- [stylelint](https://stylelint.io)
+- Style Linting: [stylelint](https://stylelint.io)
+- Install extensions using [electron-devtools-installer](https://github.com/MarshallOfSound/electron-devtools-installer)
 
 ## Setup
 
@@ -56,6 +57,18 @@ yarn prod
 yarn add [package-name] --dev # for dev tools
 yarn add [package-name] # for app
 ```
+
+## Adding DevTools
+
+Modify the file [devtools.json](devtools.json)
+
+## Static Type Checker
+
+```sh
+yarn flow
+```
+
+> Some extensions such as in [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=flowtype.flow-for-vscode) detect ```.flowconfig``` and run type checking in the editor.
 
 ## Static Types
 
