@@ -60,7 +60,15 @@ yarn add [package-name] # for app
 
 ## Adding DevTools
 
-Modify the file [devtools.json](devtools.json)
+Modify the file [devtools.json](devtools.json). For example:
+```json
+{
+    "Redux DevTools": {
+        "id": "lmhkpmbekcpmknklioeibfkpmmfibljd",
+        "version": "2.17.0"
+    }
+}
+```
 
 ## Static Type Checker
 
