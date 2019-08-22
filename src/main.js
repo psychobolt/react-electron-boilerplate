@@ -28,21 +28,17 @@ replayActionMain(store);
 let win;
 
 async function installExtension() {
-  const lockfile = require('../devtools.json'); // eslint-disable-line global-require
+  const devtools = require('../devtools.json'); // eslint-disable-line global-require
   const installed = BrowserWindow.getDevToolsExtensions();
-  const { default: install, ...configs } = require('electron-devtools-installer'); // eslint-disable-line global-require
-  return Promise.all(Object.entries(configs)
-    .reduce((list, [extension, config]) => {
-      const { name, version } = lockfile[extension] || {};
+  const { default: install } = require('electron-devtools-installer'); // eslint-disable-line global-require
+  const extensions = Object.entries(devtools)
+    .reduce((list, [name, { id, version }]) => {
       const current = installed[name];
-      if (name) {
-        return [...list, install(config.id, current.version !== version)];
-      }
-      if (current) {
-        BrowserWindow.removeDevToolsExtension(name);
-      }
-      return list;
-    }, []));
+      return current ? [...list, [id, current.version !== version]] : list;
+    }, []);
+  Object.values(installed)
+    .forEach(({ name }) => !devtools[name] && BrowserWindow.removeDevToolsExtension(name));
+  return Promise.all(extensions.map(extension => install(...extension)));
 }
 
 async function createWindow() {

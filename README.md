@@ -73,6 +73,10 @@ yarn add [package-name] --dev # for dev tools
 yarn add [package-name] # for app
 ```
 
+## Adding DevTools
+
+Modify the file [devtools.json](devtools.json)
+
 ## Merging from base project
 
 This project is a fork from psychobolt's [electron-boilerplate](https://github.com/psychobolt/electron-boilerplate). To fetch latest changes, ```git remote add base https://github.com/psychobolt/electron-boilerplate.git```. On a clean working branch, ```git pull base master```, and fix any conflicts before commit.
