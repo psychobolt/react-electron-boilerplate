@@ -1,0 +1,10 @@
+{
+    "REACT_DEVELOPER_TOOLS": {
+        "name": "React Developer Tools",
+        "version": "4.0.5"
+    },
+    "REDUX_DEVTOOLS": {
+        "name": "Redux DevTools",
+        "version": "2.17.0"
+    }
+}

@@ -28,9 +28,21 @@ replayActionMain(store);
 let win;
 
 async function installExtension() {
-  const { default: install, REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } = require('electron-devtools-installer'); // eslint-disable-line global-require
-  const extensions = [REACT_DEVELOPER_TOOLS.id, REDUX_DEVTOOLS.id];
-  return Promise.all(extensions.map(extension => install(extension)));
+  const lockfile = require('../devtools.json'); // eslint-disable-line global-require
+  const installed = BrowserWindow.getDevToolsExtensions();
+  const { default: install, ...configs } = require('electron-devtools-installer'); // eslint-disable-line global-require
+  return Promise.all(Object.entries(configs)
+    .reduce((list, [extension, config]) => {
+      const { name, version } = lockfile[extension] || {};
+      const current = installed[name];
+      if (name) {
+        return [...list, install(config.id, current.version !== version)];
+      }
+      if (current) {
+        BrowserWindow.removeDevToolsExtension(name);
+      }
+      return list;
+    }, []));
 }
 
 async function createWindow() {
