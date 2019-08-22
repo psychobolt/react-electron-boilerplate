@@ -34,8 +34,9 @@ The essential framework for React-Electron development.
 - [Enzyme](https://github.com/airbnb/enzyme)
 - Code Coverage reporter: [Codecov](https://codecov.io/)
 - ES Linting: [ESLint](http://eslint.org/) using [AirBnb style guide](https://github.com/airbnb/javascript)
-- [stylelint](https://stylelint.io)
-- [DevTools Add-Ons](https://github.com/MarshallOfSound/electron-devtools-installer), including:
+- Style Linting: [stylelint](https://stylelint.io)
+- Install extensions using [electron-devtools-installer](https://github.com/MarshallOfSound/electron-devtools-installer), including:
+  - [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
   - [Redux DevTools Extension](http://extension.remotedev.io/)
 
 ## Setup
@@ -75,7 +76,15 @@ yarn add [package-name] # for app
 
 ## Adding DevTools
 
-Modify the file [devtools.json](devtools.json)
+Modify the file [devtools.json](devtools.json). For example:
+```json
+{
+    "Redux DevTools": {
+        "id": "lmhkpmbekcpmknklioeibfkpmmfibljd",
+        "version": "2.17.0"
+    }
+}
+```
 
 ## Merging from base project
 
@@ -84,7 +93,7 @@ This project is a fork from psychobolt's [electron-boilerplate](https://github.c
 ## Static Type Checker
 
 ```sh
-yarn run flow
+yarn flow
 ```
 
 > Some extensions such as in [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=flowtype.flow-for-vscode) detect ```.flowconfig``` and run type checking in the editor.
