@@ -14,7 +14,25 @@ const electronStore = new Store();
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 
-function createWindow() {
+async function installExtension() {
+  const lockfile = require('../devtools.json'); // eslint-disable-line global-require
+  const installed = BrowserWindow.getDevToolsExtensions();
+  const { default: install, ...configs } = require('electron-devtools-installer'); // eslint-disable-line global-require
+  return Promise.all(Object.entries(configs)
+    .reduce((list, [extension, config]) => {
+      const { name, version } = lockfile[extension] || {};
+      const current = installed[name];
+      if (name) {
+        return [...list, install(config.id, current.version !== version)];
+      }
+      if (current) {
+        BrowserWindow.removeDevToolsExtension(name);
+      }
+      return list;
+    }, []));
+}
+
+async function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     width: electronStore.get('window.size.width', 800),
