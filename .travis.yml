@@ -19,3 +19,7 @@ script:
   - yarn build:dist --publish "never"
   - yarn test-e2e
   - yarn codecov
+
+branches:
+  except:
+  - experimental
