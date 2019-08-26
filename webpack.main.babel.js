@@ -19,6 +19,9 @@ let config = {
       cleanOnceBeforeBuildPatterns: ['main.bundle.js'],
     }),
   ],
+  externals: {
+    worker_threads: 'worker_treads',
+  },
 };
 
 if (process.env.NODE_ENV === 'development') {
