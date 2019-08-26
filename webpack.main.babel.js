@@ -20,7 +20,7 @@ let config = {
     }),
   ],
   externals: {
-    worker_threads: 'worker_treads',
+    worker_threads: 'worker_threads',
   },
 };
 
