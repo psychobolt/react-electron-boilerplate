@@ -33,10 +33,10 @@ Install the latest [Node JS](https://nodejs.org/) and [Yarn](https://yarnpkg.com
 
 During development, run watch task:
 ```sh
-yarn watch # compile new code changes and reloads the app
+yarn app # compile new code changes and reloads the app
 ```
 
-> Alternatively, you can run watch task (npm: watch) in Visual Studio Code.
+> Alternatively, you can run watch task (npm: app) in Visual Studio Code.
 
 Then, in another terminal, launch Electron:
 ```sh
