@@ -5,21 +5,23 @@
       "type": "node",
       "request": "launch",
       "name": "Debug App",
-      "cwd": "${workspaceRoot}",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
-      "windows": {
-        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
-      },
-      "args": ["."],
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
+      "runtimeArgs": [
+        "--",
+        "${workspaceRoot}/scripts/start.js"
+      ],
       "outputCapture": "std",
       "outFiles": [
         "${workspaceRoot}/src/.build/main.bundle.js"
       ],
       "env": {
-        "NODE_ENV": "development"
+        "BABEL_ENV": "commonjs",
       },
-      "preLaunchTask": "npm: build.main:dev",
-      "sourceMaps": true
+      "preLaunchTask": "npm: build:dev",
+      "postDebugTask": "npm: stop-debug",
+      "sourceMaps": true,
+      "restart": true,
+      "timeout": 120000
     },
     {
       "name": "Debug Jest",
