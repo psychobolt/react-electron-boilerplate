@@ -4,7 +4,7 @@ import terminate from 'terminate';
 import config from '../package.json';
 
 async function kill() {
-  await findProcess('name', '.bin/electron').then(async processes1 => {
+  await findProcess('name', process.platform === 'win32' ? 'electron.exe' : '.bin/electron').then(async processes1 => {
     if (!processes1.length) {
       await findProcess('name', 'concurrently').then(processes2 => {
         const process = processes2.find(({ cmd }) => cmd.indexOf(config.scripts['build:dev']) > -1);

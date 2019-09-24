@@ -1,4 +1,5 @@
 import path from 'path';
+import electron from 'electron';
 import nodemon from 'nodemon';
 import waitOn from 'wait-on';
 
@@ -13,7 +14,7 @@ console.log('Waiting on development server on port 3000...'); // eslint-disable-
 waitOn(
   { resources: [`tcp:localhost:${DEV_PORT}`] },
   () => {
-    const exec = `electron ${root} ${process.argv.slice(2).join(' ')}`;
+    const exec = `${electron} ${root} ${process.argv.slice(2).join(' ')}`;
     console.log( // eslint-disable-line no-console
       `Server found. Starting Electron app with watch mode. Watching file ${file}\
       \n> ${exec}\
@@ -25,8 +26,6 @@ waitOn(
       stdout: true,
     }).on('start', () => {
       console.log('Application started.'); // eslint-disable-line no-console
-    }).on('quit', () => {
-      console.log('Application stopped.'); // eslint-disable-line no-console
     });
   },
 );
