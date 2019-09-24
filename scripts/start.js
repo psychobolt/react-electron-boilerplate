@@ -14,7 +14,8 @@ console.log('Waiting on development server on port 3000...'); // eslint-disable-
 waitOn(
   { resources: [`tcp:localhost:${DEV_PORT}`] },
   () => {
-    const exec = `${electron} ${root} ${process.argv.slice(2).join(' ')}`;
+    const args = process.argv.length > 2 ? process.argv.slice(2).join(' ') : '';
+    const exec = `${electron} ${root} ${args}`;
     console.log( // eslint-disable-line no-console
       `Server found. Starting Electron app with watch mode. Watching file ${file}\
       \n> ${exec}\

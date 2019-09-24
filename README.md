@@ -36,9 +36,9 @@ During development, run watch task:
 yarn start # compile new code changes and reloads the app
 ```
 
-> Alternatively, you can launch in Visual Studio Code in debug mode.
+> Alternatively, you can launch "Debug App" in Visual Studio Code in debugger.
 
-Tesing only with production code (watch and debug unnecessary):
+Testing only with production code (watch and debug unnecessary):
 
 ```sh
 yarn prod
