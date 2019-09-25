@@ -8,7 +8,7 @@ const SIGNAL = 'SIGINT';
 const debug = process.argv.indexOf('--debugger') > -1;
 
 async function kill() {
-  await findProcess('name', electron).then(async processes1 => {
+  await findProcess('name', electron.replace(/\\/g, '\\\\')).then(async processes1 => {
     let terminated = false;
     if (debug ? !processes1.length : !debug) {
       await findProcess('name', 'concurrently').then(processes2 => {
