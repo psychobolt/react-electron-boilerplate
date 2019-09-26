@@ -11,7 +11,7 @@
     "build.app:prod": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack --config webpack.app.babel.js",
     "build.main:dev": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack -w --config webpack.main.babel.js",
     "build.main:prod": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack --config webpack.main.babel.js",
-    "build:dev": "concurrently -p {name} -c pink,orange,white npm:build.app:dev npm:build.main:dev",
+    "build:dev": "concurrently -p {name} -c red,yellow,white npm:build.app:dev npm:build.main:dev",
     "build:prod": "npm run build.app:prod && npm run build.main:prod",
     "build:dist": "electron-builder",
     "build": "npm run build:prod && npm run build:dist",
