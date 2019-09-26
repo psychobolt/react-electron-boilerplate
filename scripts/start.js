@@ -11,7 +11,7 @@ const file = path.resolve(config.output.path, config.output.filename);
 
 async function start() {
   console.log('Waiting on development server on port 3000...'); // eslint-disable-line no-console
-  await waitOn({ resources: [`tcp:localhost:${DEV_PORT}`] });
+  await waitOn({ resources: [`http://localhost:${DEV_PORT}`] });
   const args = process.argv.length > 2 ? process.argv.slice(2).join(' ') : '';
   const exec = `${electron} ${root} ${args}`;
   console.log( // eslint-disable-line no-console
