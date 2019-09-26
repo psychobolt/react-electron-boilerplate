@@ -17,7 +17,7 @@
     "build": "npm run build:prod && npm run build:dist",
     "start": "npm run dev",
     "stop": "cross-env BABEL_ENV=commonjs babel-node scripts/kill.js",
-    "dev": "npm run build:dev -- npm:app",
+    "dev": "npm run build:dev -- npm:app -k",
     "prod": "npm run build:prod && electron .",
     "app": "cross-env BABEL_ENV=commonjs babel-node scripts/start.js",
     "test": "cross-env BABEL_ENV=test jest",
