@@ -135,7 +135,7 @@
     "stylelint": "^11.0.0",
     "stylelint-config-recommended": "^3.0.0",
     "terminate": "^2.1.2",
-    "wait-on": "^3.3.0",
+    "wait-on": "^3.3.0-beta.0",
     "webpack": "^4.41.0",
     "webpack-bundle-analyzer": "^3.5.1",
     "webpack-cli": "^3.3.9",
