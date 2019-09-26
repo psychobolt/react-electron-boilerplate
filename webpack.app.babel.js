@@ -59,6 +59,14 @@ let config = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        '*.html',
+        'app.bundle.js',
+        '*.app.bundle.js',
+        '*.css',
+      ],
+    }),
   ],
 };
 
@@ -104,14 +112,6 @@ if (devMode) {
   };
   config = merge(config, {
     plugins: [
-      new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: [
-          '*.html',
-          'app.bundle.js',
-          '*.app.bundle.js',
-          '*.css',
-        ],
-      }),
       new OptimizeCssAssetsPlugin({
         cssProcessorOptions: { discardComments: { removeAll: true } },
       }),
