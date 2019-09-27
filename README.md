@@ -51,7 +51,7 @@ yarn add [package-name] --dev
 yarn add [package-name]
 ```
 
->  For any packages you wish to include in the app build, install as a non-development dependency in (main ```package.json``` or ```src/package.json```) and specify it as ```externals``` in webpack config. Any package included in ```src/package.json``` will be compiled natively for platform target during npm's postinstall.
+>  For any packages you wish to include in the app build, install as a non-development dependency in ```src/package.json``` and specify it as ```externals``` in webpack config. Any native code included in ```src/package.json``` will be compiled for platform target during npm's postinstall.
 
 ## Adding DevTools
 

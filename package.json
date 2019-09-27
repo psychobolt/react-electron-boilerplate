@@ -96,7 +96,6 @@
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-flow": "^7.0.0",
     "@babel/register": "^7.6.2",
-    "@babel/runtime": "^7.6.2",
     "ava": "^2.4.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
@@ -114,8 +113,6 @@
     "electron": "6.0.10",
     "electron-builder": "^21.2.0",
     "electron-devtools-installer": "^2.2.4",
-    "electron-log": "^3.0.8",
-    "electron-store": "^5.0.0",
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-flowtype": "^4.3.0",
@@ -145,5 +142,9 @@
     "webpack-dev-server": "^3.8.1",
     "webpack-merge": "^4.2.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/runtime": "^7.6.2",
+    "electron-log": "^3.0.8",
+    "electron-store": "^5.0.0"
+  }
 }
