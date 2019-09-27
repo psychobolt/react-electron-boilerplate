@@ -63,9 +63,11 @@ yarn prod
 ## Adding dependencies (libraries)
 
 ```sh
-yarn add [package-name] --dev # for dev tools
-yarn add [package-name] # for app
+yarn add [package-name] --dev
+yarn add [package-name]
 ```
+
+>  For any packages you wish to include in the app build, install as a non-development dependency in ```src/package.json``` and specify it as ```externals``` in webpack config. Any native code included in ```src/package.json``` will be compiled for platform target during npm's postinstall.
 
 ## Adding DevTools
 
