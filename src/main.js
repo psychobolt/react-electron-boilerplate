@@ -21,7 +21,7 @@ async function installExtension() {
   const extensions = Object.entries(devtools)
     .reduce((list, [name, { id, version }]) => {
       const current = installed[name];
-      return current ? [...list, [id, current.version !== version]] : list;
+      return [...list, [id, !current || current.version !== version]];
     }, []);
   Object.values(installed)
     .forEach(({ name }) => !devtools[name] && BrowserWindow.removeDevToolsExtension(name));
