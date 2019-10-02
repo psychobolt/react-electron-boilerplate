@@ -4,7 +4,6 @@ const isTest = process.env.BABEL_ENV === 'test';
 module.exports = {
   presets: [
     ['@babel/preset-env', {
-      modules: false,
       targets: {
         node: 'current',
       },
@@ -50,14 +49,8 @@ module.exports = {
     ...(!isTest ? ['react-hot-loader/babel'] : []),
   ],
   env: {
-    commonjs: {
-      plugins: [
-        '@babel/plugin-transform-modules-commonjs',
-      ],
-    },
     test: {
       plugins: [
-        '@babel/plugin-transform-modules-commonjs',
         'dynamic-import-node',
       ],
     },
