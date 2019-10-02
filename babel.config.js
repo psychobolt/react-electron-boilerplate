@@ -3,7 +3,6 @@ const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
   presets: [
     ['@babel/preset-env', {
-      modules: false,
       targets: {
         node: 'current',
       },
@@ -41,14 +40,8 @@ module.exports = {
     '@babel/plugin-proposal-json-strings',
   ],
   env: {
-    commonjs: {
-      plugins: [
-        '@babel/plugin-transform-modules-commonjs',
-      ],
-    },
     test: {
       plugins: [
-        '@babel/plugin-transform-modules-commonjs',
         'dynamic-import-node',
       ],
     },
