@@ -1,8 +1,7 @@
 import { app, Menu, MenuItem } from 'electron';
 
 function getDefaultSubmenu(role) {
-  return new MenuItem({ role }).submenu.items
-    .map(menuItem => ({ role: menuItem.role, type: menuItem.type }));
+  return new MenuItem({ role }).submenu.items.map(menuItem => ({ ...menuItem }));
 }
 
 export default win => {
