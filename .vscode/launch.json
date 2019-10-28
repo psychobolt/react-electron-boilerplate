@@ -24,6 +24,24 @@
       "timeout": 120000
     },
     {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Electron",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+      "windows": {
+        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+      },
+      "args": ["."],
+      "outputCapture": "std",
+      "outFiles": [
+        "${workspaceRoot}/src/.build/main.bundle.js"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true
+    },
+    {
       "name": "Debug Jest",
       "type": "node",
       "request": "launch",
