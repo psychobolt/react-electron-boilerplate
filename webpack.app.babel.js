@@ -11,10 +11,23 @@ import CommonConfig from './webpack.common';
 
 const devMode = process.env.NODE_ENV !== 'production';
 
+function recursiveIssuer(m) {
+  if (m.issuer) {
+    return recursiveIssuer(m.issuer);
+  }
+  if (m.name) {
+    return m.name;
+  }
+  return false;
+}
+
 let config = {
-  entry: ['css-hot-loader/hotModuleReplacement', './src/index.js'],
+  entry: {
+    splash: ['css-hot-loader/hotModuleReplacement', './src/splash.js'],
+    app: ['css-hot-loader/hotModuleReplacement', './src/index.js'],
+  },
   output: {
-    filename: 'app.bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'src', '.build'),
   },
   target: 'electron-renderer',
@@ -40,15 +53,25 @@ let config = {
   optimization: {
     splitChunks: {
       cacheGroups: {
+        venderJS: {
+          name: 'vendor',
+          test: /[\\/]node_modules[\\/].+\.js$/,
+        },
         venderStyles: {
           name: 'vender',
           test: /[\\/]node_modules[\\/].+\.css$/,
           chunks: 'all',
           enforce: true,
         },
-        styles: {
-          name: 'styles',
-          test: /src[\\/].+\.css$/,
+        splashStyles: {
+          name: 'splash',
+          test: (m, c, entry = 'splash') => m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+          chunks: 'all',
+          enforce: true,
+        },
+        appStyles: {
+          name: 'app',
+          test: (m, c, entry = 'app') => m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
           chunks: 'all',
           enforce: true,
         },
@@ -64,15 +87,25 @@ let config = {
         '*.html',
         'app.bundle.js',
         '*.app.bundle.js',
+        'splash.bundle.js',
+        '*.splash.bundle.js',
         '*.css',
       ],
     }),
   ],
 };
 
-let htmlConfig = {
-  filename: 'index.html',
-  template: 'src/index.html',
+const htmlConfigs = {
+  splash: {
+    filename: 'splash.html',
+    template: 'src/splash.html',
+    excludeChunks: ['app'],
+  },
+  app: {
+    filename: 'index.html',
+    template: 'src/index.html',
+    excludeChunks: ['splash'],
+  },
 };
 
 if (devMode) {
@@ -86,13 +119,13 @@ if (devMode) {
     plugins: [
       new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin(),
-      new HtmlWebpackPlugin(htmlConfig),
+      new HtmlWebpackPlugin(htmlConfigs.splash),
+      new HtmlWebpackPlugin(htmlConfigs.app),
       new BundleAnalyzerPlugin(),
     ],
   });
 } else {
-  htmlConfig = {
-    ...htmlConfig,
+  const htmlConfig = {
     minify: {
       collapseBooleanAttributes: true,
       decodeEntities: true,
@@ -115,7 +148,8 @@ if (devMode) {
       new OptimizeCssAssetsPlugin({
         cssProcessorOptions: { discardComments: { removeAll: true } },
       }),
-      new HtmlWebpackPlugin(htmlConfig),
+      new HtmlWebpackPlugin({ ...htmlConfigs.splash, ...htmlConfig }),
+      new HtmlWebpackPlugin({ ...htmlConfigs.app, ...htmlConfig }),
     ],
   });
 }

@@ -3,6 +3,7 @@ import Store from 'electron-store';
 import log from 'electron-log';
 import path from 'path';
 import url from 'url';
+import wait from 'waait';
 
 import menu from './menu';
 
@@ -28,15 +29,67 @@ async function installExtension() {
   return Promise.all(extensions.map(extension => install(...extension)));
 }
 
-async function createWindow() {
-  // Create the browser window.
-  win = new BrowserWindow({
-    width: electronStore.get('window.size.width', 800),
-    height: electronStore.get('window.size.height', 600),
+let initialized = false;
+
+async function createSplash(parent) {
+  if (initialized) return null;
+
+  const splash = new BrowserWindow({
+    width: 500,
+    height: 300,
+    resizable: false,
+    movable: false,
+    minimizable: false,
+    maximizable: false,
+    skipTaskbar: true,
+    show: false,
+    frame: false,
+    parent,
+    autoHideMenuBar: true,
+    type: 'splash',
     webPreferences: {
       nodeIntegration: true,
     },
   });
+
+  if (process.env.NODE_ENV === 'production') {
+    splash.loadURL(url.format({
+      pathname: path.join(__dirname, 'splash.html'),
+      protocol: 'file:',
+      slashes: true,
+    }));
+  } else {
+    splash.loadURL('http://localhost:3000/splash.html');
+  }
+
+  splash.on('closed', () => {
+    initialized = true;
+  });
+
+  await wait(500);
+  splash.show();
+  await wait(2750);
+
+  return splash;
+}
+
+async function createWindow() {
+  Menu.setApplicationMenu(Menu.buildFromTemplate([{
+    label: app.getName(),
+    submenu: [{ role: 'quit' }],
+  }]));
+
+  // Create the browser window.
+  win = new BrowserWindow({
+    width: electronStore.get('window.size.width', 800),
+    height: electronStore.get('window.size.height', 600),
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  const splash = await createSplash(win);
 
   // and load the index.html of the app.
   if (process.env.NODE_ENV === 'production') {
@@ -48,13 +101,15 @@ async function createWindow() {
   } else {
     await installExtension();
     process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
-    win.loadURL('http://localhost:3000/'); // TODO: pass port
+    win.loadURL('http://localhost:3000/');
   }
 
-  if (process.env.NODE_ENV === 'development') {
-    // Open the DevTools.
-    win.webContents.openDevTools();
-  }
+  win.once('show', () => {
+    if (process.env.NODE_ENV === 'development') {
+      // Open the DevTools.
+      win.webContents.openDevTools();
+    }
+  });
 
   win.on('resize', () => {
     const [width, height] = win.getSize();
@@ -76,7 +131,10 @@ async function createWindow() {
     win = null;
   });
 
-  Menu.setApplicationMenu(menu(win));
+  if (!initialized) Menu.setApplicationMenu(menu(win));
+
+  if (splash) splash.destroy();
+  win.show();
 }
 
 // This method will be called when Electron has finished
