@@ -5,6 +5,7 @@ import log from 'electron-log';
 import { combineReducers } from 'redux';
 import path from 'path';
 import url from 'url';
+import wait from 'waait';
 
 import initialState from './App/TodoList/TodoList.state';
 import reducers from './App/TodoList/TodoList.reducers';
@@ -41,15 +42,67 @@ async function installExtension() {
   return Promise.all(extensions.map(extension => install(...extension)));
 }
 
-async function createWindow() {
-  // Create the browser window.
-  win = new BrowserWindow({
-    width: electronStore.get('window.size.width', 800),
-    height: electronStore.get('window.size.height', 600),
+let waitOnStart = !process.env.SKIP_SPLASH;
+
+async function createSplash(parent) {
+  if (!waitOnStart) return null;
+
+  const splash = new BrowserWindow({
+    width: 500,
+    height: 300,
+    resizable: false,
+    movable: false,
+    minimizable: false,
+    maximizable: false,
+    skipTaskbar: true,
+    frame: false,
+    show: false,
+    parent,
+    autoHideMenuBar: true,
+    type: 'splash',
     webPreferences: {
       nodeIntegration: true,
     },
   });
+
+  if (process.env.NODE_ENV === 'production') {
+    splash.loadURL(url.format({
+      pathname: path.join(__dirname, 'splash.html'),
+      protocol: 'file:',
+      slashes: true,
+    }));
+  } else {
+    splash.loadURL('http://localhost:3000/splash.html');
+  }
+
+  splash.on('closed', () => {
+    waitOnStart = false;
+  });
+
+  splash.on('ready-to-show', () => splash.show());
+
+  await wait(2750);
+
+  return splash;
+}
+
+async function createWindow() {
+  Menu.setApplicationMenu(Menu.buildFromTemplate([{
+    label: app.getName(),
+    submenu: [{ role: 'quit' }],
+  }]));
+
+  // Create the browser window.
+  win = new BrowserWindow({
+    width: electronStore.get('window.size.width', 800),
+    height: electronStore.get('window.size.height', 600),
+    show: !waitOnStart,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  const splash = await createSplash(win);
 
   // and load the index.html of the app.
   if (process.env.NODE_ENV === 'production') {
@@ -61,13 +114,15 @@ async function createWindow() {
   } else {
     await installExtension();
     process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
-    win.loadURL('http://localhost:3000/'); // TODO: pass port
+    win.loadURL('http://localhost:3000/');
   }
 
-  if (process.env.NODE_ENV === 'development') {
-    // Open the DevTools.
-    win.webContents.openDevTools();
-  }
+  win.once('show', () => {
+    if (process.env.NODE_ENV === 'development') {
+      // Open the DevTools.
+      win.webContents.openDevTools();
+    }
+  });
 
   win.on('resize', () => {
     const [width, height] = win.getSize();
@@ -90,6 +145,11 @@ async function createWindow() {
   });
 
   Menu.setApplicationMenu(menu(win, store));
+
+  if (splash) {
+    splash.close();
+    win.show();
+  }
 }
 
 // This method will be called when Electron has finished

@@ -57,7 +57,7 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.js",
-      "!src/(main|menu|globals).js",
+      "!src/(main|menu|splash|globals).js",
       "!**/.build/**",
       "!src/**/(index|reducer).js"
     ],
@@ -186,6 +186,7 @@
     "styled-components": "^4.3.2",
     "typeface-roboto": "^0.0.75",
     "typeface-roboto-mono": "^0.0.75",
-    "xel": "^0.0.210"
+    "xel": "^0.0.210",
+    "waait": "^1.0.5"
   }
 }
