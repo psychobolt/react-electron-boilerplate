@@ -29,10 +29,10 @@ async function installExtension() {
   return Promise.all(extensions.map(extension => install(...extension)));
 }
 
-let initialized = false;
+let waitOnStart = !process.env.SKIP_SPLASH;
 
 async function createSplash(parent) {
-  if (initialized) return null;
+  if (!waitOnStart) return null;
 
   const splash = new BrowserWindow({
     width: 500,
@@ -43,6 +43,7 @@ async function createSplash(parent) {
     maximizable: false,
     skipTaskbar: true,
     frame: false,
+    show: false,
     parent,
     autoHideMenuBar: true,
     type: 'splash',
@@ -62,8 +63,10 @@ async function createSplash(parent) {
   }
 
   splash.on('closed', () => {
-    initialized = true;
+    waitOnStart = false;
   });
+
+  splash.on('ready-to-show', () => splash.show());
 
   await wait(2750);
 
@@ -80,7 +83,7 @@ async function createWindow() {
   win = new BrowserWindow({
     width: electronStore.get('window.size.width', 800),
     height: electronStore.get('window.size.height', 600),
-    show: false,
+    show: !waitOnStart,
     webPreferences: {
       nodeIntegration: true,
     },
@@ -128,10 +131,12 @@ async function createWindow() {
     win = null;
   });
 
-  if (!initialized) Menu.setApplicationMenu(menu(win));
+  Menu.setApplicationMenu(menu(win));
 
-  if (splash) splash.close();
-  win.show();
+  if (splash) {
+    splash.close();
+    win.show();
+  }
 }
 
 // This method will be called when Electron has finished

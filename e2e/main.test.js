@@ -9,7 +9,9 @@ test.beforeEach(async t => {
   t.context.app = new Application({ // eslint-disable-line no-param-reassign
     path: electronPath,
     args: [appPath],
-    startTimeout: 60000,
+    env: {
+      SKIP_SPLASH: true,
+    },
   });
 
   await t.context.app.start();
