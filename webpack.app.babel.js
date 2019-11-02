@@ -56,6 +56,8 @@ let config = {
         venderJS: {
           name: 'vendor',
           test: /[\\/]node_modules[\\/].+\.js$/,
+          chunks: 'all',
+          enforce: true,
         },
         venderStyles: {
           name: 'vender',
@@ -89,6 +91,7 @@ let config = {
         '*.app.bundle.js',
         'splash.bundle.js',
         '*.splash.bundle.js',
+        'vendor.bundle.js',
         '*.css',
       ],
     }),

@@ -42,7 +42,6 @@ async function createSplash(parent) {
     minimizable: false,
     maximizable: false,
     skipTaskbar: true,
-    show: false,
     frame: false,
     parent,
     autoHideMenuBar: true,
@@ -66,8 +65,6 @@ async function createSplash(parent) {
     initialized = true;
   });
 
-  await wait(500);
-  splash.show();
   await wait(2750);
 
   return splash;
