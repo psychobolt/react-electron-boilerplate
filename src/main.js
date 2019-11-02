@@ -133,7 +133,7 @@ async function createWindow() {
 
   if (!initialized) Menu.setApplicationMenu(menu(win));
 
-  if (splash) splash.destroy();
+  if (splash) splash.close();
   win.show();
 }
 
