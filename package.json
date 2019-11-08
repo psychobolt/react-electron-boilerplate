@@ -4,7 +4,7 @@
   "description": "A minimalistic Electron boilerplate based on the official first-app tutorial. Enhanced with webpack support.",
   "main": "src/.build/main.bundle.js",
   "scripts": {
-    "postinstall": "rimraf flow-typed/npm && npm run flow-typed-install:dev && npm run flow-typed-install:app && electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps && rimraf flow-typed/npm && npm run flow-typed-install:dev && npm run flow-typed-install:app",
     "flow-typed-install:dev": "flow-typed update -s",
     "flow-typed-install:app": "cd src/ && flow-typed update -s -p ../ || true",
     "build.app:dev": "cross-env BABEL_ENV=renderer NODE_ENV=development webpack-dev-server --config webpack.app.babel.js",
