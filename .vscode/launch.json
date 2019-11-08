@@ -1,6 +1,27 @@
 {
   "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Debug App/Apollo",
+      "configurations": ["Debug App", "Debug Apollo"]
+    }
+  ],
   "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Apollo",
+      "outputCapture": "std",
+      "outFiles": [
+        "${workspaceRoot}/src/.build/server.bundle.js"
+      ],
+      "preLaunchTask": "npm: debug-apollo",
+      "postDebugTask": "npm: stop-apollo",
+      "port": 9229,
+      "sourceMaps": true,
+      "restart": true,
+      "timeout": 120000
+    },
     {
       "type": "node",
       "request": "launch",

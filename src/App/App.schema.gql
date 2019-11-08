@@ -1,0 +1,5 @@
+#import './TodoList/TodoList.schema.gql';
+
+type Query
+
+type Mutation

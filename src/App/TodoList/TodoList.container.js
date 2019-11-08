@@ -1,16 +1,15 @@
-// @flow
-import { connect } from 'react-redux';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { useDispatch, useSelector } from 'react-redux';
 
 import TodoList from './TodoList.component';
 import { getVisibleTodos } from './TodoList.selectors';
-import type { TodoListState } from './TodoList.state';
+import { loadTodos } from './TodoList.actions';
+import query from './TodoList.query.gql';
 
-type Props = {
-  filter: string
+export default props => {
+  const dispatch = useDispatch();
+  const { loading } = useQuery(query, { onCompleted: ({ todos }) => dispatch(loadTodos(todos)) });
+  const todos = useSelector(state => getVisibleTodos(state, props));
+  return <TodoList defaultText={loading ? 'Loading' : 'No items'} todos={todos} {...props} />;
 };
-
-export const mapStateToProps = (state: TodoListState, props: Props) => ({
-  todos: getVisibleTodos(state, props),
-});
-
-export default connect(mapStateToProps)(TodoList);

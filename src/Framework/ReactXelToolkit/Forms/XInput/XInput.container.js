@@ -98,10 +98,10 @@ export class XInput extends React.Component<Props, State> {
   }
 
   render() {
-    const { className, fallback, value } = this.props;
+    const { className, fallback, value, ...props } = this.props;
     const { fallbackEnabled } = this.state;
     return (
-      <x-input class={className} ref={this.ref}>
+      <x-input class={className} ref={this.ref} {...props}>
         {fallbackEnabled && fallback && fallback({
           onKeyUp: this.onSyntheticEvent,
           defaultValue: value,

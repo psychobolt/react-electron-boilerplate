@@ -1,11 +1,18 @@
-import { addTodo } from '../TodoForm';
-import { toggleTodo, deleteTodo } from '../TodoItem';
+import { addTodo } from '../TodoForm/TodoForm.actions';
+import { toggleTodo, deleteTodo } from '../TodoItem/TodoItem.actions';
+import { loadTodos } from '../TodoList.actions';
 import { todosReducer } from '../TodoList.reducers';
 import initialState from '../TodoList.state';
 
 describe('Todos reducer', () => {
   it('should return default state', () => {
     expect(todosReducer(undefined, { type: undefined })).toEqual(initialState.todos.present);
+  });
+
+  it('should load todos', () => {
+    const todos = [];
+    const action = loadTodos(todos);
+    expect(todosReducer(undefined, action)).toEqual(todos);
   });
 
   it('should add todo', () => {

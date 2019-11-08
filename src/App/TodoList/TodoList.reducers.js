@@ -1,34 +1,24 @@
-import undoable from 'redux-undo';
+import { handleActions } from 'redux-actions';
+import undoable, { excludeAction } from 'redux-undo';
 
-import { Actions as TodoListActions } from './TodoList.actions';
+import { Actions, loadTodos } from './TodoList.actions';
 import initialState from './TodoList.state';
-import { Actions as TodoFormActions } from './TodoForm';
-import { Actions as TodoItemActions } from './TodoItem';
+import { addTodo } from './TodoForm/TodoForm.actions';
+import { deleteTodo, toggleTodo } from './TodoItem';
 
-export const todosReducer = (state = initialState.todos.present, action) => {
-  switch (action.type) {
-    case TodoFormActions.ADD_TODO:
-      return [
-        ...state,
-        {
-          id: action.payload.id,
-          text: action.payload.text,
-          completed: false,
-        },
-      ];
-    case TodoItemActions.DELETE_TODO:
-      return state.filter(todo => todo.id !== action.payload.id);
-    case TodoItemActions.TOGGLE_TODO:
-      return state.map(todo => (todo.id === action.payload.id
-        ? { ...todo, completed: !todo.completed } : todo));
-    default:
-      return state;
-  }
-};
+export const todosReducer = handleActions({
+  [loadTodos]: (state, { payload }) => payload,
+  [addTodo]: (state, { payload: { id, text } }) => [...state, { id, text, completed: false }],
+  [deleteTodo]: (state, { payload: { id } }) => state.filter(todo => todo.id !== id),
+  [toggleTodo]: (state, { payload: { id } }) => state
+    .map(todo => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
+}, initialState.todos.present);
 
 export default {
   todos: undoable(todosReducer, {
-    undoType: TodoListActions.UNDO_TODO,
-    redoType: TodoListActions.REDO_TODO,
+    undoType: Actions.UNDO_TODO,
+    redoType: Actions.REDO_TODO,
+    filter: excludeAction([Actions.LOAD_TODOS, Actions.FETCH_TODOS, Actions.SAVE_TODOS]),
+    syncFilter: true,
   }),
 };

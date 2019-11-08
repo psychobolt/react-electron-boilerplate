@@ -6,6 +6,7 @@ import { XInput, type XInputEvent } from 'Framework/ReactXelToolkit';
 import * as styles from './TodoForm.style';
 
 type Props = {
+  disabled?: boolean,
   inputValue?: string,
   onValueSubmit: (value: string) => void,
   className: string,
@@ -21,6 +22,7 @@ export const KEYCODE_ENTER = 13;
 
 export default class TodoForm extends React.Component<Props, State> {
   static defaultProps = {
+    disabled: false,
     inputValue: '',
   };
 
@@ -58,15 +60,16 @@ export default class TodoForm extends React.Component<Props, State> {
   }
 
   render() {
-    const { className } = this.props;
+    const { className, disabled } = this.props;
     const { inputValue } = this.state;
     return (
       <x-box class={className}>
         <Input
           value={inputValue}
           onKeyup={this.onInputKeyup}
+          disabled={disabled}
         />
-        <x-button onClick={this.onButtonClick}>
+        <x-button onClick={this.onButtonClick} disabled={disabled}>
           <x-label>
             {'Add Todo'}
           </x-label>

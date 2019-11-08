@@ -4,7 +4,8 @@
     "paths": {
       "App/*": ["./src/App/*"],
       "Framework/*": ["./src/Framework/*"],
-      "shared/*": ["./src/shared/*"]
+      "shared/*": ["./src/shared/*"],
+      "persistence/*": ["./src/persistence/*"]
     }
   }
 }

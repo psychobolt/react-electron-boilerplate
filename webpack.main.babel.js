@@ -1,4 +1,5 @@
 import path from 'path';
+import webpack from 'webpack';
 import merge from 'webpack-merge';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
@@ -9,6 +10,7 @@ let config = {
   output: {
     filename: 'main.bundle.js',
     path: path.resolve(__dirname, 'src', '.build'),
+    hotUpdateMainFilename: 'main.[hash].hot-update.json',
   },
   node: {
     __dirname: true,
@@ -16,17 +18,22 @@ let config = {
   target: 'electron-main',
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: ['main.bundle.js'],
+      cleanOnceBeforeBuildPatterns: [
+        'main.bundle.js',
+        '*.main.bundle.js',
+        'main.*.hot-update.json',
+        'main.*.hot-update.js',
+      ],
     }),
   ],
-  externals: {
-    worker_threads: 'worker_threads',
-  },
 };
 
 if (process.env.NODE_ENV === 'development') {
   config = merge(config, {
     devtool: 'inline-source-map',
+    plugins: [
+      new webpack.IgnorePlugin(/.\/server$/),
+    ],
   });
 } else {
   config = merge(config, {

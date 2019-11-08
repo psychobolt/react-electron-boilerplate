@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { Filters } from './TodoFilter';
 
-const getTodos = state => state.todos.present;
+export const getTodos = state => state.todos.present;
 
 const getFilter = (state, { filter }) => filter;
 

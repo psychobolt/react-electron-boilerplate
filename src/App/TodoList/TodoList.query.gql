@@ -1,0 +1,7 @@
+query GetTodos {
+  todos: getTodos {
+    id,
+    text,
+    completed
+  }
+}

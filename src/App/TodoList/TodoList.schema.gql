@@ -1,0 +1,39 @@
+#import "./TodoItem/TodoItem.schema.gql"
+
+extend type Query {
+  getTodos(ids: [ID]): [Todo]!
+}
+
+interface MutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+}
+
+type GenericMutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+}
+
+type TodosUpsertResponse implements MutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+  todos: [Todo]
+}
+
+type TodoUpdateResponse implements MutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+  todo: Todo
+}
+
+extend type Mutation {
+  saveTodos(todos: [UpsertTodoInput]!): TodosUpsertResponse!
+  addTodo(todo: CreateTodoInput!): TodoUpdateResponse!
+  deleteTodo(id: ID!): GenericMutationResponse!
+  deleteTodos(ids: [ID]!): GenericMutationResponse!
+  updateTodo(todo: UpdateTodoInput!): TodoUpdateResponse!
+}

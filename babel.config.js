@@ -44,7 +44,8 @@ module.exports = function config(api) {
         cwd: './',
       }],
       'babel-plugin-styled-components',
-      ...(!api.env('test') ? ['react-hot-loader/babel'] : []),
+      ...(!api.env('node-hot') ? ['import-graphql'] : []),
+      ...(!api.env(['test', 'main']) ? ['react-hot-loader/babel'] : []),
     ],
     env: {
       test: {

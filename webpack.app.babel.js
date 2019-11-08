@@ -113,7 +113,7 @@ const htmlConfigs = {
   splash: {
     filename: 'splash.html',
     template: 'src/splash.html',
-    excludeChunks: ['app'],
+    excludeChunks: ['vender', 'app'],
   },
   app: {
     filename: 'index.html',
@@ -130,6 +130,11 @@ if (devMode) {
       port: 3000,
       hot: true,
       historyApiFallback: true,
+    },
+    resolve: {
+      alias: {
+        'react-dom': '@hot-loader/react-dom',
+      },
     },
     plugins: [
       new webpack.NamedModulesPlugin(),

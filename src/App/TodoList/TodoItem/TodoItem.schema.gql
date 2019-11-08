@@ -1,0 +1,33 @@
+type Todo {
+  "Todo item identifier"
+  id: ID!
+  "Text content (or details) of the Todo item"
+  text: String
+  "True if the Todo item is completed, else false (which optionally can be undefined)"
+  completed: Boolean
+}
+
+input CreateTodoInput {
+  "Text content (or details) of the Todo item"
+  text: String!
+  "True if the Todo item is completed, else false (which optionally can be undefined)"
+  completed: Boolean
+}
+
+input UpdateTodoInput {
+  "Todo item identifier"
+  id: ID!
+  "Text content (or details) of the Todo item"
+  text: String
+  "True if the Todo item is completed, else false (which optionally can be undefined)"
+  completed: Boolean
+}
+
+input UpsertTodoInput {
+  "Todo item identifier. Optional, if creating new item."
+  id: ID
+  "Text content (or details) of the Todo item"
+  text: String
+  "True if the Todo item is completed, else false (which optionally can be undefined)"
+  completed: Boolean
+}

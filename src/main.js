@@ -7,9 +7,11 @@ import path from 'path';
 import url from 'url';
 import wait from 'waait';
 
-import initialState from './App/TodoList/TodoList.state';
-import reducers from './App/TodoList/TodoList.reducers';
+import initialState from './state';
+import { updateLoadingText } from './Splash/Splash.actions';
+import reducers from './App/App.reducers';
 import configureStore from './shared/store';
+import umzug from './persistence/umzug';
 import menu from './menu';
 
 log.catchErrors();
@@ -86,11 +88,18 @@ async function createSplash(parent) {
   return splash;
 }
 
+let stopServer;
+
 async function createWindow() {
   Menu.setApplicationMenu(Menu.buildFromTemplate([{
     label: app.getName(),
     submenu: [{ role: 'quit' }],
   }]));
+
+  if (process.env.NODE_ENV === 'production') {
+    const { default: startServer } = require('./server'); // eslint-disable-line global-require
+    stopServer = await startServer(); // start all connections
+  }
 
   // Create the browser window.
   win = new BrowserWindow({
@@ -104,6 +113,9 @@ async function createWindow() {
 
   const splash = await createSplash(win);
 
+  store.dispatch(updateLoadingText('Preparing data...'));
+  await umzug.up();
+
   // and load the index.html of the app.
   if (process.env.NODE_ENV === 'production') {
     win.loadURL(url.format({
@@ -112,6 +124,7 @@ async function createWindow() {
       slashes: true,
     }));
   } else {
+    store.dispatch(updateLoadingText('Installing extensions...'));
     await installExtension();
     process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true;
     win.loadURL('http://localhost:3000/');
@@ -158,7 +171,11 @@ async function createWindow() {
 app.on('ready', createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
+app.on('window-all-closed', async () => {
+  if (process.NODE_ENV === 'production') {
+    await stopServer(); // destroy all connections
+  }
+
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {

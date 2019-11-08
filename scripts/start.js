@@ -6,16 +6,19 @@ import waitOn from 'wait-on';
 import config from '../webpack.main.babel';
 
 const DEV_PORT = 3000;
+const APOLLO_PORT = 4000;
 const root = path.resolve(__dirname, '..');
 const file = path.resolve(config.output.path, config.output.filename);
 
 async function start() {
   console.log('Waiting on development server on port 3000...'); // eslint-disable-line no-console
   await waitOn({ resources: [`http://localhost:${DEV_PORT}`] });
+  console.log('Waiting on apollo server on port 4000...'); // eslint-disable-line no-console
+  await waitOn({ resources: [`tcp:localhost:${APOLLO_PORT}`] });
   const args = process.argv.length > 2 ? process.argv.slice(2).join(' ') : '';
   const exec = `${electron} ${root} ${args}`;
   console.log( // eslint-disable-line no-console
-    `Server found. Starting Electron app with watch mode. Watching file ${file}\
+    `Servers found. Starting Electron app with watch mode. Watching file ${file}\
     \n> ${exec}\
     `,
   );

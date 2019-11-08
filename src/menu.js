@@ -1,12 +1,11 @@
-import { app, Menu, MenuItem } from 'electron';
-import { undoTodo, redoTodo } from './App/TodoList/TodoList.actions';
+import { app, dialog, Menu, MenuItem } from 'electron';
+import { fetchTodos, loadTodos, saveTodos, undoTodo, redoTodo } from './App/TodoList/TodoList.actions';
 
 function getDefaultSubmenu(role) {
   return new MenuItem({ role }).submenu.items.map(menuItem => ({ ...menuItem }));
 }
 
 export default (win, store) => {
-  const { todos } = store.getState();
   const template = [];
 
   if (process.platform === 'darwin') {
@@ -17,23 +16,80 @@ export default (win, store) => {
     template.push(appMenu);
   }
 
+  const fileMenu = {
+    label: 'File',
+    submenu: [
+      {
+        label: 'New',
+        accelerator: 'CommandOrControl+N',
+        click: () => dialog.showMessageBox(win, {
+          type: 'warning',
+          buttons: ['Cancel', 'OK'],
+          title: 'Create New List',
+          message: 'Creating a new list will overwrite any new changes. Do you wish to proceed?',
+        }).then(({ response }) => {
+          if (response === 1) {
+            store.dispatch(loadTodos([]));
+          }
+        }),
+      },
+      {
+        label: 'Load Last Saved',
+        accelerator: 'CommandOrControl+R',
+        click: () => dialog.showMessageBox(win, {
+          type: 'warning',
+          buttons: ['Cancel', 'OK'],
+          title: 'Load Last Saved',
+          message: 'Loading last saved will overwrite any new changes. Do you wish to proceed?',
+        }).then(({ response }) => {
+          if (response === 1) {
+            store.dispatch(fetchTodos({ isNetwork: true }));
+          }
+        })
+        ,
+      },
+      {
+        label: 'Save',
+        accelerator: 'CommandOrControl+S',
+        click: () => store.dispatch(saveTodos()),
+      },
+      { type: 'separator' },
+      ...getDefaultSubmenu('fileMenu'),
+    ],
+  };
+  template.push(fileMenu);
+
   const [undo, redo, ...rest] = getDefaultSubmenu('editMenu');
   const editMenu = {
     label: 'Edit',
     submenu: [
-      undo,
-      redo,
       {
-        label: 'Undo Todo',
-        accelerator: `CommandOrControl+Shift+${process.platform === 'darwin' ? 'U' : 'Z'}`,
-        click: () => store.dispatch(undoTodo()),
-        enabled: todos.past.length > 0,
+        ...undo,
+        role: 'normal',
+        accelerator: 'CommandOrControl+Z',
+        click: () => {
+          const state = store.getState();
+          const hasPast = state.todos.past.length > 0;
+          if (state.app.webUndoRedoEnabled || !hasPast) {
+            win.webContents.undo();
+          } else if (hasPast) {
+            store.dispatch(undoTodo());
+          }
+        },
       },
       {
-        label: 'Redo Todo',
-        accelerator: 'CommandOrControl+Shift+Y',
-        click: () => store.dispatch(redoTodo()),
-        enabled: todos.future.length > 0,
+        ...redo,
+        role: 'normal',
+        accelerator: 'CommandOrControl+Shift+Z',
+        click: () => {
+          const state = store.getState();
+          const hasFuture = state.todos.future.length > 0;
+          if (state.app.webUndoRedoEnabled || !hasFuture) {
+            win.webContents.redo();
+          } else if (hasFuture) {
+            store.dispatch(redoTodo());
+          }
+        },
       },
       ...rest,
     ],
@@ -45,7 +101,10 @@ export default (win, store) => {
     submenu: [
       { role: 'togglefullscreen' },
       ...(process.env.NODE_ENV === 'development' ? [
-        { role: 'reload' },
+        {
+          role: 'reload',
+          accelerator: 'CommandOrControl+Shift+R',
+        },
         { role: 'toggledevtools' },
       ] : []),
     ],
@@ -75,14 +134,6 @@ export default (win, store) => {
   template.push(windowMenu);
 
   const menu = Menu.buildFromTemplate(template);
-
-  const undoTodoItem = menu.items[process.platform === 'darwin' ? 1 : 0].submenu.items[2];
-  const redoTodoItem = menu.items[process.platform === 'darwin' ? 1 : 0].submenu.items[3];
-  store.subscribe(() => {
-    const state = store.getState();
-    undoTodoItem.enabled = state.todos.past.length > 0;
-    redoTodoItem.enabled = state.todos.future.length > 0;
-  });
 
   return menu;
 };

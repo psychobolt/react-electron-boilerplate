@@ -38,7 +38,7 @@ describe('container <TodoForm />', () => {
     expect(store.getActions()).toEqual([{
       type: Actions.ADD_TODO,
       payload: {
-        id: 0,
+        id: 'temp_0',
         text,
       },
     }]);

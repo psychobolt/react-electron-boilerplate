@@ -1,0 +1,20 @@
+mutation UpsertTodos($todos: [UpsertTodoInput]!) {
+  saveTodos(todos: $todos) {
+    code
+    success
+    message
+    todos {
+      id
+      text
+      completed
+    }
+  }
+}
+
+mutation DeleteTodos($ids: [ID]!) {
+  deleteTodos(ids: $ids) {
+    code
+    success
+    message
+  }
+}
