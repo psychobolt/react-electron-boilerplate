@@ -4,7 +4,7 @@
   "description": "The essential framework for React-Electron development.",
   "main": "src/.build/main.bundle.js",
   "scripts": {
-    "postinstall": "rimraf flow-typed/npm && npm run flow-typed-install:dev && npm run flow-typed-install:app && electron-rebuild -m src && electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps && electron-rebuild -m src && rimraf flow-typed/npm && npm run flow-typed-install:dev && npm run flow-typed-install:app",
     "flow-typed-install:dev": "flow-typed update -s",
     "flow-typed-install:app": "cd src/ && flow-typed update -s -p ../ || true",
     "sequelize": "sequelize --options-path sequelize.config.js",
