@@ -24,11 +24,11 @@ export default (win, store) => {
         accelerator: 'CommandOrControl+N',
         click: () => dialog.showMessageBox(win, {
           type: 'warning',
-          buttons: ['Cancel', 'OK'],
+          buttons: ['OK', 'Cancel'],
           title: 'Create New List',
           message: 'Creating a new list will overwrite any new changes. Do you wish to proceed?',
         }).then(({ response }) => {
-          if (response === 1) {
+          if (response === 0) {
             store.dispatch(loadTodos([]));
           }
         }),
@@ -38,11 +38,11 @@ export default (win, store) => {
         accelerator: 'CommandOrControl+R',
         click: () => dialog.showMessageBox(win, {
           type: 'warning',
-          buttons: ['Cancel', 'OK'],
+          buttons: ['OK', 'Cancel'],
           title: 'Load Last Saved',
           message: 'Loading last saved will overwrite any new changes. Do you wish to proceed?',
         }).then(({ response }) => {
-          if (response === 1) {
+          if (response === 0) {
             store.dispatch(fetchTodos({ isNetwork: true }));
           }
         })
