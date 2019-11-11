@@ -4,7 +4,7 @@
   "description": "The essential framework for React-Electron development.",
   "main": "src/.build/main.bundle.js",
   "scripts": {
-    "postinstall": "electron-builder install-app-deps && electron-rebuild -m src && rimraf flow-typed/npm && npm run flow-typed-install:dev && npm run flow-typed-install:app",
+    "postinstall": "electron-builder install-app-deps && node-pre-gyp install -C src/node_modules/sqlite3 --fallback-to-build && electron-rebuild -m src && rimraf flow-typed/npm && npm run flow-typed-install:dev && npm run flow-typed-install:app",
     "flow-typed-install:dev": "flow-typed update -s",
     "flow-typed-install:app": "cd src/ && flow-typed update -s -p ../ || true",
     "sequelize": "sequelize --options-path sequelize.config.js",
@@ -152,6 +152,7 @@
     "mini-css-extract-plugin": "^0.8.0",
     "mock-apollo-client": "^0.2.0",
     "node-hot-loader": "^1.17.6",
+    "node-pre-gyp": "^0.14.0",
     "node-sass": "^4.12.0",
     "nodemon": "^1.19.2",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
