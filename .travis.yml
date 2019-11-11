@@ -17,6 +17,7 @@ script:
   - yarn test --coverage
   - yarn build:prod
   - yarn build:dist --publish "never"
+  - yarn sequelize db:migrate
   - yarn test-e2e
   - yarn codecov
 
