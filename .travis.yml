@@ -1,8 +1,5 @@
 dist: xenial
 
-env:
-  - NODE_ENV=production
-
 language: node_js
 
 node_js:
