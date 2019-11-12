@@ -14,7 +14,7 @@ const getUserDataDir = () => {
     case 'linux':
       return `${os.homedir()}/.config/${productName}`;
     case 'win32':
-      return process.env.APPDATA;
+      return `${process.env.APPDATA}/${productName}`;
     default:
       throw new Error(`Electron builds are not available on platform: ${platform}`);
   }
