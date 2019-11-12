@@ -23,7 +23,7 @@
     "app": "cross-env babel-node scripts/start.js",
     "apollo": "cross-env BABEL_ENV=node-hot NODE_ENV=development node-hot --logLevel verbose --config webpack.apollo.babel.js",
     "test": "cross-env BABEL_ENV=test jest",
-    "test-e2e": "ava",
+    "test-e2e": "cross-env DB_STORAGE=:memory: ava",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint ./src/**/*.js",
     "lint:js": "eslint src e2e *.js",

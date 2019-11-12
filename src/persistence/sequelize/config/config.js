@@ -24,20 +24,20 @@ const defaultOptions = {
   dialect: 'sqlite',
   dialectModule: sqlite3,
 };
-
+const defaultStorage = process.env.DB_STORAGE;
 const rootPath = path.resolve('.');
 
 module.exports = {
   development: {
     ...defaultOptions,
-    storage: path.resolve(rootPath, 'dev.db'),
+    storage: defaultStorage || path.resolve(rootPath, 'dev.db'),
   },
-  test: {
+  test: { // not being used at the moment
     ...defaultOptions,
-    storage: path.resolve(rootPath, 'test.db'),
+    storage: defaultStorage || path.resolve(rootPath, 'test.db'),
   },
   production: {
     ...defaultOptions,
-    storage: path.resolve(getUserDataDir(), 'store.db'),
+    storage: defaultStorage || path.resolve(getUserDataDir(), 'store.db'),
   },
 };
