@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import Umzug from 'umzug';
 
-import { sqlite } from './sqlite';
+import sequelize from './index';
 
 const getFile = path => {
   const paths = path.split('/');
@@ -10,7 +10,7 @@ const getFile = path => {
 
 const importAll = require => require.keys().map(path => {
   const { up, down } = require(path); // eslint-disable-line import/no-dynamic-require
-  const queryInterface = sqlite.getQueryInterface();
+  const queryInterface = sequelize.getQueryInterface();
   const file = getFile(path);
   return {
     path: null,
@@ -21,12 +21,12 @@ const importAll = require => require.keys().map(path => {
   };
 });
 
-const migrations = importAll(require.context('./sequelize/migrations', true, /\.js/));
+const migrations = importAll(require.context('./migrations', true, /\.js/));
 
 const umzug = new Umzug({
   storage: 'sequelize',
   storageOptions: {
-    sequelize: sqlite,
+    sequelize,
   },
   migrations,
 });

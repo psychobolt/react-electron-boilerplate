@@ -11,7 +11,7 @@ import initialState from './state';
 import { updateLoadingText } from './Splash/Splash.actions';
 import reducers from './App/App.reducers';
 import configureStore from './shared/store';
-import umzug from './persistence/umzug';
+import { up } from './persistence';
 import menu from './menu';
 
 log.catchErrors();
@@ -114,7 +114,7 @@ async function createWindow() {
   const splash = await createSplash(win);
 
   store.dispatch(updateLoadingText('Preparing data...'));
-  await umzug.up();
+  await up();
 
   // and load the index.html of the app.
   if (process.env.NODE_ENV === 'production') {

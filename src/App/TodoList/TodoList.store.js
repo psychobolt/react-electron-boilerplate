@@ -1,9 +1,9 @@
 import Sequelize, { Op } from 'sequelize';
 
-import { sqlite } from 'persistence/sqlite';
+import sequelize from 'persistence/sequelize';
 import Model from 'persistence/sequelize/models/todo';
 
-const Todo = Model(sqlite, Sequelize);
+const Todo = Model(sequelize, Sequelize);
 
 export default SubType => class extends SubType {
   getTodos = ids => Todo.findAll(ids ? { where: { id: { [Op.in]: ids } } } : {})
