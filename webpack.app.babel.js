@@ -69,8 +69,8 @@ let config = {
           test: /[\\/]node_modules[\\/]xel[\\/].+\.css$/,
         },
         venderStyles: {
-          name: 'vender',
-          test: /[\\/]node_modules[\\/](?!(xel[\\/])).+\.css/,
+          name: 'vender.style',
+          test: /[\\/]node_modules[\\/].+\.css$/,
           chunks: 'all',
           enforce: true,
         },
@@ -100,7 +100,8 @@ let config = {
         '*.app.bundle.js',
         'splash.bundle.js',
         '*.splash.bundle.js',
-        'vendor.bundle.js',
+        'vender.bundle.js',
+        'vender.style.bundle.js',
         '*.css',
         '*.woff',
         '*.woff2',
@@ -113,12 +114,12 @@ const htmlConfigs = {
   splash: {
     filename: 'splash.html',
     template: 'src/splash.html',
-    chunks: ['vender', 'splash'],
+    chunks: ['vender', 'vender.style', 'splash'],
   },
   app: {
     filename: 'index.html',
     template: 'src/index.html',
-    chunks: ['xel.theme', 'vender', 'app'],
+    chunks: ['vender', 'vender.style', 'app'],
   },
 };
 
