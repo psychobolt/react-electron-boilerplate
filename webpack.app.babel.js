@@ -102,12 +102,12 @@ const htmlConfigs = {
   splash: {
     filename: 'splash.html',
     template: 'src/splash.html',
-    excludeChunks: ['app'],
+    chunks: ['vender', 'splash'],
   },
   app: {
     filename: 'index.html',
     template: 'src/index.html',
-    excludeChunks: ['splash'],
+    chunks: ['vender', 'app'],
   },
 };
 
