@@ -60,7 +60,7 @@ let config = {
           enforce: true,
         },
         venderStyles: {
-          name: 'vender',
+          name: 'vender.style',
           test: /[\\/]node_modules[\\/].+\.css$/,
           chunks: 'all',
           enforce: true,
@@ -91,7 +91,7 @@ let config = {
         '*.app.bundle.js',
         'splash.bundle.js',
         '*.splash.bundle.js',
-        'vendor.bundle.js',
+        'vendor.*.js',
         '*.css',
       ],
     }),
@@ -102,12 +102,12 @@ const htmlConfigs = {
   splash: {
     filename: 'splash.html',
     template: 'src/splash.html',
-    chunks: ['vender', 'splash'],
+    chunks: ['vender', 'vender.style', 'splash'],
   },
   app: {
     filename: 'index.html',
     template: 'src/index.html',
-    chunks: ['vender', 'app'],
+    chunks: ['vender', 'vender.style', 'app'],
   },
 };
 
