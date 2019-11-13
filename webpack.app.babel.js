@@ -64,10 +64,6 @@ let config = {
           chunks: 'all',
           enforce: true,
         },
-        xelStyles: {
-          name: 'xel.theme',
-          test: /[\\/]node_modules[\\/]xel[\\/].+\.css$/,
-        },
         venderStyles: {
           name: 'vender.style',
           test: /[\\/]node_modules[\\/].+\.css$/,
