@@ -75,7 +75,7 @@ async function createSplash(parent) {
 
 async function createWindow() {
   Menu.setApplicationMenu(Menu.buildFromTemplate([{
-    label: app.getName(),
+    label: app.name,
     submenu: [{ role: 'quit' }],
   }]));
 
