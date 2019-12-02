@@ -1,28 +1,37 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { shallow } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
+import { createMockClient } from 'mock-apollo-client';
 
-import { Filters } from '../TodoList';
+import { updateWrapper } from 'Framework/EnzymeHelpers';
+
 import App from '../App.component';
 import initialState from '../App.state';
 
 const mockStore = configureMockStore([]);
 
 describe('component <App />', () => {
-  [Filters.ALL, undefined].forEach(filter => {
-    it(` should render without crashing with filter ${filter}`, () => {
-      const store = mockStore(initialState);
-      const props = {
-        match: {
-          params: { filter },
-        },
-      };
-      shallow(
+  it('should render without crashing', async () => {
+    const store = mockStore(initialState);
+    const client = createMockClient();
+    const props = {
+      match: {
+        params: {},
+      },
+    };
+    const wrapper = mount(
+      <ApolloProvider client={client}>
         <Provider store={store}>
-          <App {...props} />
-        </Provider>,
-      );
-    });
+          <MemoryRouter>
+            <App {...props} />
+          </MemoryRouter>
+        </Provider>
+      </ApolloProvider>,
+    );
+    await updateWrapper(wrapper);
+    wrapper.unmount();
   });
 });

@@ -69,11 +69,10 @@ export default (win, store) => {
         accelerator: 'CommandOrControl+Z',
         click: () => {
           const state = store.getState();
-          const hasPast = state.todos.past.length > 0;
-          if (state.app.webUndoRedoEnabled || !hasPast) {
-            win.webContents.undo();
-          } else if (hasPast) {
+          if (state.todos.past.length > 0) {
             store.dispatch(undoTodo());
+          } else {
+            win.webContents.undo();
           }
         },
       },
@@ -83,11 +82,10 @@ export default (win, store) => {
         accelerator: 'CommandOrControl+Shift+Z',
         click: () => {
           const state = store.getState();
-          const hasFuture = state.todos.future.length > 0;
-          if (state.app.webUndoRedoEnabled || !hasFuture) {
-            win.webContents.redo();
-          } else if (hasFuture) {
+          if (state.todos.future.length > 0) {
             store.dispatch(redoTodo());
+          } else {
+            win.webContents.redo();
           }
         },
       },

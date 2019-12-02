@@ -34,7 +34,12 @@ The essential framework for React-Electron development.
 - Packaging support: [electron-builder](https://github.com/electron-userland/electron-builder)
 - Test runner: [Jest](https://facebook.github.io/jest)
 - e2e runner: [Spectron](https://electron.atom.io/spectron/) + [EVA](https://github.com/avajs/ava)
-- [Enzyme](https://github.com/airbnb/enzyme)
+- Mocking and testing utilities
+    - [Enzyme](https://github.com/airbnb/enzyme)
+    - [Redux Mock Store](https://github.com/dmitry-zaets/redux-mock-store)
+    - [Redux Saga Test Plan](http://redux-saga-test-plan.jeremyfairbank.com/)
+    - [Sequelize Mock](https://sequelize-mock.readthedocs.io/)
+    - [Mock Apollo Client](https://github.com/Mike-Gibson/mock-apollo-client)
 - Code Coverage reporter: [Codecov](https://codecov.io/)
 - ES Linting: [ESLint](http://eslint.org/) using [AirBnb style guide](https://github.com/airbnb/javascript)
 - Style Linting: [stylelint](https://stylelint.io)

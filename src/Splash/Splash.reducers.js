@@ -6,5 +6,5 @@ import { updateLoadingText } from './Splash.actions';
 export default {
   splash: handleActions({
     [updateLoadingText]: (state, { payload }) => ({ ...state, loadingText: payload }),
-  }, initialState),
+  }, initialState.splash),
 };

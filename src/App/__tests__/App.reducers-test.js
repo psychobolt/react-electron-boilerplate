@@ -1,8 +1,20 @@
-import { combineReducers } from 'redux';
+import configureStore from 'redux-mock-store';
 
 import reducers from '../App.reducers';
-import state from '../App.state';
+import { loadTodos, saveTodos } from '../TodoList/TodoList.actions';
 
-it('App reducers should generate default state', () => {
-  expect(combineReducers(reducers)(undefined, {})).toEqual(state);
+const mockStore = configureStore([]);
+
+describe('App reducer', () => {
+  it('should disable saving status on loading todos', () => {
+    const store = mockStore(([action]) => reducers.app(undefined, action));
+    store.dispatch(loadTodos([]));
+    expect(store.getState()).toEqual({ saving: false });
+  });
+
+  it('should enable saving status on saving todos', () => {
+    const store = mockStore(([action]) => reducers.app(undefined, action));
+    store.dispatch(saveTodos([]));
+    expect(store.getState()).toEqual({ saving: true });
+  });
 });

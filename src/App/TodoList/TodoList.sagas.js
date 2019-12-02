@@ -14,7 +14,7 @@ function* queryTodos(network) {
   return response.data.todos;
 }
 
-function* onFetchTodos({ payload: { network } }) {
+function* onFetchTodos({ payload: { network } = {} }) {
   yield put(loadTodos(yield queryTodos(network)));
 }
 

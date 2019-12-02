@@ -1,5 +1,12 @@
 #import './TodoList/TodoList.schema.gql';
 
-type Query
+type StoreInfo {
+  name: String
+  description: String
+}
+
+type Query {
+  getStoreInfo: [StoreInfo]!
+}
 
 type Mutation

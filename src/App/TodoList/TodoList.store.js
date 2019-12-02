@@ -5,6 +5,11 @@ import Model from 'persistence/sequelize/models/todo';
 
 const Todo = Model(sequelize, Sequelize);
 
+export const info = {
+  name: 'TodoList',
+  description: 'Manages the storing and retrieval of todo items for a list',
+};
+
 export default SubType => class extends SubType {
   getTodos = ids => Todo.findAll(ids ? { where: { id: { [Op.in]: ids } } } : {})
 

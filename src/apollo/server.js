@@ -11,7 +11,7 @@ export default app => {
     typeDefs: gql(schema),
     resolvers,
     dataSources: () => ({
-      app: new AppStore(),
+      store: new AppStore(),
     }),
   });
   apollo.applyMiddleware({ app });

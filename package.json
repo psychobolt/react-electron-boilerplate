@@ -64,9 +64,6 @@
       "!src/**/index.js",
       "!src/(persistence|apollo)/**"
     ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/e2e/"
@@ -131,7 +128,6 @@
     "electron-rebuild": "^1.8.6",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "enzyme-to-json": "^3.4.0",
     "eslint": "^6.4.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-import-resolver-babel-module": "5.0.1",
@@ -148,7 +144,6 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^4.0.0-beta.11",
     "jest": "^24.9.0",
-    "jest-styled-components": "^6.3.3",
     "mini-css-extract-plugin": "^0.8.0",
     "mock-apollo-client": "^0.2.0",
     "node-hot-loader": "^1.17.6",
@@ -157,13 +152,14 @@
     "nodemon": "^1.19.2",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "react-hot-loader": "^4.12.14",
-    "react-test-renderer": "^16.9.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-mock-store": "^1.5.3",
+    "redux-saga-test-plan": "^4.0.0-rc.3",
     "rimraf": "^3.0.0",
     "sass-loader": "^8.0.0",
     "sequelize": "^5.19.0",
     "sequelize-cli": "^5.5.1",
+    "sequelize-mock": "^0.10.2",
     "source-map-loader": "^0.2.4",
     "spectron": "8.0.0",
     "style-loader": "^1.0.0",
