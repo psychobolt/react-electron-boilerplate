@@ -10,7 +10,7 @@ export default (win, store) => {
 
   if (process.platform === 'darwin') {
     const appMenu = {
-      label: app.getName(),
+      label: app.name,
       submenu: getDefaultSubmenu('appMenu'),
     };
     template.push(appMenu);
