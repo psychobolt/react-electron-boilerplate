@@ -28,10 +28,10 @@
         }
       ]
     },
-    {
-      "label": "npm: stop-debug",
-      "type": "shell",
-      "command": "npm run stop -- --debugger",
-    }
+    // {
+    //   "label": "npm: stop-debug",
+    //   "type": "shell",
+    //   "command": "npm run stop -- --debugger",
+    // }
   ]
 }
