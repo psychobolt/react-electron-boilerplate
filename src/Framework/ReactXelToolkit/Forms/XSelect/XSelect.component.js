@@ -7,11 +7,11 @@ type Props = {
 }
 
 export default class XSelect extends React.Component<Props> {
+  ref: React.RefObject<EventTarget>
+
   static defaultProps = {
     onChange: () => {},
   }
-
-  ref: React.RefObject<EventTarget>
 
   constructor(props: Props) {
     super(props);

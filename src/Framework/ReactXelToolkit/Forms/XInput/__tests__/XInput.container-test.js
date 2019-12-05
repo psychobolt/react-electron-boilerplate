@@ -13,11 +13,7 @@ class XInputMock extends XInput {
   }
 
   render() {
-    return (
-      <div>
-        {'XInput mocked'}
-      </div>
-    );
+    return <div>XInput mocked</div>;
   }
 }
 

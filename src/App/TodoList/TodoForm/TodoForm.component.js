@@ -70,9 +70,7 @@ export default class TodoForm extends React.Component<Props, State> {
           disabled={disabled}
         />
         <x-button onClick={this.onButtonClick} disabled={disabled}>
-          <x-label>
-            {'Add Todo'}
-          </x-label>
+          <x-label>Add Todo</x-label>
         </x-button>
       </x-box>
     );

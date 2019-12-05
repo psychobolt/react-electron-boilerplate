@@ -15,7 +15,7 @@ type FallbackProps = {
 
 type Props = {
   onKeyup: (event: XInputEvent) => void,
-  value?: string,
+  value: string,
   className: string,
   fallback?: (props: FallbackProps) => React.Element<'input'>
 };
@@ -27,14 +27,13 @@ type State = {
 export const EVENT_KEYUP = 'keyup';
 
 export class XInput extends React.Component<Props, State> {
-  static defaultProps = {
-    value: '',
-    fallback: (props: FallbackProps) => <input {...props} />,
-  };
-
   input: ?HTMLInputElement;
 
-  ref: React.createRef<React.ElementType>;
+  ref: React.Ref<React.ElementType>;
+
+  static defaultProps = {
+    fallback: (props: FallbackProps) => <input {...props} />,
+  };
 
   constructor(props: Props) {
     super(props);
