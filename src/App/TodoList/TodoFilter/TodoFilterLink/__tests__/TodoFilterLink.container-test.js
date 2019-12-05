@@ -11,10 +11,13 @@ const mockStore = configureMockStore([]);
 
 describe('container <TodoFilterLink />', () => {
   it('should render correctly without crashing', () => {
+    const store = mockStore({});
     shallow(
-      <TodoFilterLink filter={Filters.ALL}>
-        {Filters.ALL}
-      </TodoFilterLink>,
+      <Provider store={store}>
+        <TodoFilterLink filter={Filters.ALL}>
+          {Filters.ALL}
+        </TodoFilterLink>
+      </Provider>,
     );
   });
 

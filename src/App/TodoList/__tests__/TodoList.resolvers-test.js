@@ -32,7 +32,10 @@ afterEach(() => {
 });
 
 describe('TodoList query resolvers', () => {
-  it('should get todos successfully', () => getQuery().getTodos(undefined, {}, config).then(todos => expect(todos.length).toBe(1)));
+  describe('should get todos successfully', () => {
+    it('for all', () => getQuery().getTodos(undefined, {}, config).then(todos => expect(todos.length).toBe(1)));
+    it('for ids', () => getQuery().getTodos(undefined, { ids: ['1'] }, config).then(todos => expect(todos.length).toBe(1)));
+  });
 });
 
 describe('TodoList mutation resolvers', () => {
