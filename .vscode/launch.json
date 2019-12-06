@@ -39,7 +39,6 @@
         "BABEL_ENV": "commonjs",
       },
       "preLaunchTask": "npm: build:dev",
-      // "postDebugTask": "npm: stop-debug",
       "sourceMaps": true,
       "restart": true,
       "timeout": 120000
