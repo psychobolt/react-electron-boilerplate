@@ -1,15 +1,14 @@
-import fs from 'fs';
 import path from 'path';
 import electron from 'electron';
 import nodemon from 'nodemon';
 import waitOn from 'wait-on';
+import findProcess from 'find-process';
 import terminate from 'terminate';
 
 import config from '../webpack.main.babel';
 
 const DEV_PORT = 3000;
 const root = path.resolve(__dirname, '..');
-const pidFile = path.resolve(root, 'electron.pid');
 const file = path.resolve(config.output.path, config.output.filename);
 
 async function start() {
@@ -26,19 +25,20 @@ async function start() {
   }).on('start', () => {
     console.log('Application started.'); // eslint-disable-line no-console
   }).on('restart', () => {
-    const pid = fs.readFileSync(pidFile, { encoding: 'utf8' });
-    terminate(pid, 'SIGINT', {}, () => {
-      console.log(`Process ${pid} killed.`); // eslint-disable-line no-console
-    });
+    findProcess('name', electron.replace(/\\/g, '\\\\')).then(processes => processes.forEach(({ pid }) => {
+      terminate(pid, 'SIGINT', {}, () => {
+        console.log(`Process ${pid} killed.`); // eslint-disable-line no-console
+      });
+    }));
   }).on('log', event => {
     console.log(`[nodemon] ${event.type} - ${event.message}`); // eslint-disable-line no-console
-    const key = 'pid:';
-    const startIndex = event.message.indexOf(key);
-    const pid = startIndex > -1 ? event.message.substring(startIndex + key.length).trim() : null;
-    if (pid) {
-      fs.writeFileSync(pidFile, pid);
-    }
   });
 }
+
+process.once('SIGINT', () => {
+  require('./kill').default.then(() => { // eslint-disable-line global-require
+    process.exit();
+  });
+});
 
 start();
