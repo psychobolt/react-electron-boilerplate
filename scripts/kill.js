@@ -8,7 +8,7 @@ const SIGNAL = 'SIGINT';
 
 async function kill() {
   let terminated = false;
-  await findProcess('name', electron.replace(/\\/g, '\\\\')).then(async processes1 => {
+  await findProcess('name', electron.replace(/\\/g, '\\\\')).then(processes1 => {
     processes1.forEach(({ pid }) => {
       terminate(pid, SIGNAL);
       terminated = true;
