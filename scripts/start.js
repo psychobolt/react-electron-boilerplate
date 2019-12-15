@@ -1,4 +1,3 @@
-import fs from 'fs';
 import path from 'path';
 import electron from 'electron';
 import nodemon from 'nodemon';
@@ -22,13 +21,19 @@ async function start() {
     watch: mainFile,
     signal: KILL_SIGNAL,
     verbose: true,
-  }).on('start', () => {
-    console.log('Application started.'); // eslint-disable-line no-console
-  }).on('restart', () => {
-    console.log('Application restarted.'); // eslint-disable-line no-console
-  }).on('log', event => {
-    console.log(`[nodemon] (${event.type}) - ${event.message}`); // eslint-disable-line no-console
-  });
+  })
+    .on('start', () => {
+      console.log('Application started.'); // eslint-disable-line no-console
+    })
+    .on('restart', () => {
+      console.log('Application restarted.'); // eslint-disable-line no-console
+    })
+    .on('log', event => {
+      console.log(`[nodemon] (${event.type}) - ${event.message}`); // eslint-disable-line no-console
+    })
+    .on('crash', async () => {
+      process.exit();
+    });
 }
 
 start();
