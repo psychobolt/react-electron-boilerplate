@@ -35,10 +35,7 @@
       "outFiles": [
         "${workspaceRoot}/src/.build/main.bundle.js"
       ],
-      "env": {
-        "BABEL_ENV": "commonjs",
-      },
-      "preLaunchTask": "npm: build:dev",
+      "preLaunchTask": "npm: build:dev && npm: watch",
       "sourceMaps": true,
       "restart": true,
       "timeout": 120000

@@ -28,7 +28,7 @@ async function kill() {
     });
     await findProcess('name', 'concurrently').then(processes2 => {
       const watchProcess = processes2.find(({ cmd }) => cmd.indexOf(config.scripts['build:dev']) > -1);
-      if (watchProcess) {
+      if (watchProcess && watchProcess.pid !== process.pid) {
         terminate(watchProcess.pid, SIGNAL);
         terminated = true;
       }
