@@ -34,16 +34,18 @@ async function start() {
     })
     .on('log', event => {
       console.log(`[nodemon] (${event.type}) ${event.message}`); // eslint-disable-line no-console
-      if (restarting && event.type === 'status' && event.message.indexOf('still waiting for') > -1) {
-        findProcess('name', electron.replace(/\\/g, '\\\\')).then(processes => {
-          processes.forEach(({ pid }) => {
-            terminate(pid, KILL_SIGNAL);
+      if (restarting) {
+        if (event.type === 'status' && event.message.indexOf('still waiting for') > -1) {
+          findProcess('name', electron.replace(/\\/g, '\\\\')).then(processes => {
+            processes.forEach(({ pid }) => {
+              terminate(pid, KILL_SIGNAL);
+            });
           });
-        });
-      }
-      if (event.type === 'detail' && event.message.indexOf('child pid') > -1) {
-        restarting = false;
-        console.log('Application restarted.'); // eslint-disable-line no-console
+        }
+        if (event.type === 'detail' && event.message.indexOf('child pid') > -1) {
+          restarting = false;
+          console.log('Application restarted.'); // eslint-disable-line no-console
+        }
       }
     })
     .on('crash', async () => {
