@@ -25,7 +25,7 @@ The essential framework for React-Electron development.
   - [Env](https://babeljs.io/docs/plugins/preset-env/) with [stage-0](https://github.com/babel/babel/tree/master/packages/babel-preset-stage-0) features 
   - [Flow](https://flow.org/) Type support
   - [Sass](http://sass-lang.com/) support
-  - [Hot Module Reloading](https://webpack.js.org/guides/hot-module-replacement/) enabled with [React Hot Loader](https://github.com/gaearon/react-hot-loader)
+  - [Hot Module Reloading](httpws://webpack.js.org/guides/hot-module-replacement/) enabled with [React Refresh](https://github.com/pmmmwh/react-refresh-webpack-plugin)
 - Babel plugins: 
   - [Module Resolver](https://github.com/tleunen/babel-plugin-module-resolver)
   - Regenerator Runtime support with [Tranform Runtime](https://babeljs.io/docs/plugins/transform-runtime/)

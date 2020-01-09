@@ -6,6 +6,7 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 import CommonConfig from './webpack.common';
 
@@ -24,7 +25,7 @@ function recursiveIssuer(m) {
 let config = {
   entry: {
     splash: ['css-hot-loader/hotModuleReplacement', './src/splash.js'],
-    app: ['react-hot-loader/patch', 'css-hot-loader/hotModuleReplacement', './src/index.js'],
+    app: ['css-hot-loader/hotModuleReplacement', './src/index.js'],
   },
   output: {
     filename: '[name].bundle.js',
@@ -128,17 +129,13 @@ if (devMode) {
       hot: true,
       historyApiFallback: true,
     },
-    resolve: {
-      alias: {
-        'react-dom': '@hot-loader/react-dom',
-      },
-    },
     plugins: [
       new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin(htmlConfigs.splash),
       new HtmlWebpackPlugin(htmlConfigs.app),
       new BundleAnalyzerPlugin(),
+      new ReactRefreshPlugin({ disableRefreshCheck: true }),
     ],
   });
 } else {
