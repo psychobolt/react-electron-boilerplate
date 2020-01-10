@@ -5,8 +5,8 @@
   "main": "src/.build/main.bundle.js",
   "scripts": {
     "postinstall": "electron-builder install-app-deps && node-pre-gyp install -C src/node_modules/sqlite3 --fallback-to-build && electron-rebuild -m src && rimraf flow-typed/npm && npm run flow-typed-install:dev && npm run flow-typed-install:app",
-    "flow-typed-install:dev": "flow-typed update -s",
-    "flow-typed-install:app": "cd src/ && flow-typed update -s -p ../ || true",
+    "flow-typed-install:dev": "cross-env NODE_OPTIONS=--max_old_space_size=10000 flow-typed update -s",
+    "flow-typed-install:app": "cd src/ && cross-env NODE_OPTIONS=--max_old_space_size=10000 flow-typed update -s -p ../ || true",
     "sequelize": "sequelize --options-path sequelize.config.js",
     "build.app:dev": "cross-env BABEL_ENV=renderer NODE_ENV=development webpack-dev-server --config webpack.app.babel.js",
     "build.app:prod": "cross-env BABEL_ENV=renderer NODE_ENV=production webpack --config webpack.app.babel.js",
