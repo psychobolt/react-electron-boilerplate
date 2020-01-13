@@ -1,6 +1,8 @@
 import path from 'path';
 import merge from 'webpack-merge';
 
+const isDevMode = process.env.NODE_ENV === 'development';
+
 let config = {
   module: {
     rules: [
@@ -8,7 +10,12 @@ let config = {
         test: /\.js$/,
         include: path.resolve(__dirname, 'src'),
         use: [
-          'babel-loader',
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: [process.env.BABEL_ENV === 'renderer' && isDevMode && ['react-refresh/babel', { skipEnvCheck: true }]].filter(Boolean),
+            },
+          },
         ],
       },
     ],
@@ -29,7 +36,7 @@ let config = {
   },
 };
 
-if (process.env.NODE_ENV === 'development') {
+if (isDevMode) {
   config = merge(config, {
     mode: 'development',
     module: {

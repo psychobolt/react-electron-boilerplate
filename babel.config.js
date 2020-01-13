@@ -1,5 +1,3 @@
-const isDevMode = process.env.NODE_ENV === 'development';
-
 module.exports = function config(api) {
   return {
     presets: [
@@ -46,9 +44,8 @@ module.exports = function config(api) {
         cwd: './',
       }],
       'babel-plugin-styled-components',
-      ...(!api.env('node-hot') ? ['import-graphql'] : []),
-      ...(api.env(['renderer']) && isDevMode ? [['react-refresh/babel', { skipEnvCheck: true }]] : []),
-    ],
+      !api.env('node-hot') && 'import-graphql',
+    ].filter(Boolean),
     env: {
       test: {
         plugins: [
