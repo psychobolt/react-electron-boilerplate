@@ -21,14 +21,20 @@ const importAll = require => require.keys().map(path => {
   };
 });
 
-const migrations = importAll(require.context('./migrations', true, /\.js/));
+
+let migrations;
+try {
+  migrations = require.context('./migrations', true, /\.js/);
+} catch (e) {
+  migrations = [];
+}
 
 const umzug = new Umzug({
   storage: 'sequelize',
   storageOptions: {
     sequelize,
   },
-  migrations,
+  migrations: importAll(migrations),
 });
 
 export default umzug;
