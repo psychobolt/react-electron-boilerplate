@@ -23,18 +23,14 @@ const importAll = require => require.keys().map(path => {
 
 
 let migrations;
-try {
-  migrations = require.context('./migrations', true, /\.js/);
-} catch (e) {
-  migrations = [];
-}
+try { migrations = require.context('./migrations', true, /\.js/); } catch (e) {} // eslint-disable-line no-empty
 
 const umzug = new Umzug({
   storage: 'sequelize',
   storageOptions: {
     sequelize,
   },
-  migrations: importAll(migrations),
+  migrations: migrations ? importAll(migrations) : [],
 });
 
 export default umzug;
