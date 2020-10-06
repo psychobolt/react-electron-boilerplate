@@ -7,6 +7,8 @@ import wait from 'waait';
 
 import menu from './menu';
 
+app.commandLine.appendSwitch('ignore-gpu-blacklist');
+
 log.catchErrors();
 
 const electronStore = new Store();
