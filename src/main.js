@@ -14,6 +14,8 @@ import configureStore from './shared/store';
 import { up } from './persistence';
 import menu from './menu';
 
+app.commandLine.appendSwitch('ignore-gpu-blacklist');
+
 log.catchErrors();
 
 const electronStore = new Store();
