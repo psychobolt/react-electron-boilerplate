@@ -19,7 +19,7 @@ A minimalistic Electron boilerplate based on the official [first-app](https://el
 - Logfile support using [electron-log](https://github.com/megahertz/electron-log)
 - Packaging support: [electron-builder](https://github.com/electron-userland/electron-builder)
 - Test runner: [Jest](https://facebook.github.io/jest)
-- e2e runner: [Spectron](https://electron.atom.io/spectron/) + [EVA](https://github.com/avajs/ava)
+- e2e runner: [Spectron](https://electron.atom.io/spectron/) + [AVA](https://github.com/avajs/ava)
 - Code Coverage reporter: [Codecov](https://codecov.io/)
 - ES Linting: [ESLint](http://eslint.org/) using [AirBnb style guide](https://github.com/airbnb/javascript)
 - Style Linting: [stylelint](https://stylelint.io)

@@ -31,7 +31,7 @@ async function installExtension() {
   return Promise.all(extensions.map(extension => install(...extension)));
 }
 
-let waitOnStart = !process.env.SKIP_SPLASH;
+let waitOnStart = process.env.SKIP_SPLASH === 'false';
 
 async function createSplash(parent) {
   if (!waitOnStart) return null;
@@ -88,6 +88,7 @@ async function createWindow() {
     show: !waitOnStart,
     webPreferences: {
       nodeIntegration: true,
+      enableRemoteModule: process.env.DEBUG === 'true',
     },
   });
 

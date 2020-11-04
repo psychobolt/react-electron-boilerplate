@@ -1,8 +1,11 @@
 import path from 'path';
+import webpack from 'webpack';
 import merge from 'webpack-merge';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import CommonConfig from './webpack.common';
+
+const isDev = process.env.NODE_ENV === 'development';
 
 let config = {
   entry: ['./src/main.js'],
@@ -18,13 +21,17 @@ let config = {
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['main.bundle.js'],
     }),
+    new webpack.EnvironmentPlugin({
+      SKIP_SPLASH: process.env.SKIP_SPLASH || false,
+      DEBUG: process.env.DEBUG || isDev,
+    }),
   ],
   externals: {
     worker_threads: 'worker_threads',
   },
 };
 
-if (process.env.NODE_ENV === 'development') {
+if (isDev) {
   config = merge(config, {
     devtool: 'inline-source-map',
   });
