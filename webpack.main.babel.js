@@ -5,6 +5,8 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import CommonConfig from './webpack.common';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 let config = {
   entry: ['./src/main.js'],
   output: {
@@ -25,10 +27,14 @@ let config = {
         'main.*.hot-update.js',
       ],
     }),
+    new webpack.EnvironmentPlugin({
+      SKIP_SPLASH: process.env.SKIP_SPLASH || false,
+      DEBUG: process.env.DEBUG || isDev,
+    }),
   ],
 };
 
-if (process.env.NODE_ENV === 'development') {
+if (isDev) {
   config = merge(config, {
     devtool: 'inline-source-map',
     plugins: [

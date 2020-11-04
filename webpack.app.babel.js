@@ -90,6 +90,7 @@ let config = {
         },
       },
     },
+    moduleIds: 'named',
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -135,7 +136,6 @@ if (devMode) {
       historyApiFallback: true,
     },
     plugins: [
-      new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin(htmlConfigs.splash),
       new HtmlWebpackPlugin(htmlConfigs.app),
