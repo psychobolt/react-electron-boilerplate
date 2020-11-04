@@ -10,7 +10,6 @@ import { updateWrapper } from 'Framework/EnzymeHelpers';
 import TodoList from '../TodoList.container';
 import query from '../TodoList.query.gql';
 
-
 const mockStore = configureMockStore([]);
 
 const completedTodo = {
