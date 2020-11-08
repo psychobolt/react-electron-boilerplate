@@ -110,7 +110,7 @@ async function createWindow() {
     show: !waitOnStart,
     webPreferences: {
       nodeIntegration: true,
-      enableRemoteModule: process.env.DEBUG === 'true',
+      enableRemoteModule: process.env.DEBUG_MAIN === 'true',
     },
   });
 
