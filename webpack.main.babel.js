@@ -23,7 +23,7 @@ let config = {
     }),
     new webpack.EnvironmentPlugin({
       SKIP_SPLASH: process.env.SKIP_SPLASH || false,
-      DEBUG: process.env.DEBUG || isDev,
+      DEBUG_MAIN: process.env.DEBUG_MAIN || isDev,
     }),
   ],
   externals: {

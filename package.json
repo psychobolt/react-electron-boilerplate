@@ -11,7 +11,7 @@
     "build.app:prod": "cross-env BABEL_ENV=renderer NODE_ENV=production webpack --config webpack.app.babel.js",
     "build.main:dev": "cross-env BABEL_ENV=main NODE_ENV=development webpack -w --config webpack.main.babel.js",
     "build.main:prod": "cross-env BABEL_ENV=main NODE_ENV=production webpack --config webpack.main.babel.js",
-    "build.main:e2e": "cross-env BABEL_ENV=main NODE_ENV=production SKIP_SPLASH=true DEBUG=true webpack --config webpack.main.babel.js",
+    "build.main:e2e": "cross-env BABEL_ENV=main NODE_ENV=production SKIP_SPLASH=true DEBUG_MAIN=true webpack --config webpack.main.babel.js",
     "build:dev": "concurrently -p {name} -c red,yellow,white npm:build.app:dev npm:build.main:dev",
     "build:prod": "npm run build.app:prod && npm run build.main:prod",
     "build:prod-e2e": "npm run build.app:prod && npm run build.main:e2e",
