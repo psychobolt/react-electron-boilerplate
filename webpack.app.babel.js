@@ -30,6 +30,7 @@ let config = {
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'src', '.build'),
+    publicPath: process.env.ASSET_PATH || '/',
   },
   target: 'electron-renderer',
   module: {
@@ -47,9 +48,6 @@ let config = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: devMode,
-            },
           },
           'css-loader',
           'sass-loader',
@@ -140,7 +138,7 @@ if (devMode) {
       new HtmlWebpackPlugin(htmlConfigs.splash),
       new HtmlWebpackPlugin(htmlConfigs.app),
       new BundleAnalyzerPlugin(),
-      new ReactRefreshPlugin({ disableRefreshCheck: true }),
+      new ReactRefreshPlugin(),
     ],
   });
 } else {

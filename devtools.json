@@ -1,7 +1,7 @@
 {
     "React Developer Tools": {
         "id": "fmkadmapgofadopljbjfkapdkoienihi",
-        "version": "4.8.2"
+        "version": "4.10.0"
     },
     "Redux DevTools": {
         "id": "lmhkpmbekcpmknklioeibfkpmmfibljd",
@@ -9,6 +9,6 @@
     },
     "Apollo Client Devtools": {
         "id": "jdkknkkbebbapilgoeccciglkfbmbnfm",
-        "version": "2.2.5"
+        "version": "2.3.3"
     }
 }
