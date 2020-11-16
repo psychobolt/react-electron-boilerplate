@@ -34,7 +34,7 @@ let win;
 
 async function installExtension() {
   const devtools = require('../devtools.json'); // eslint-disable-line global-require
-  const installed = BrowserWindow.getDevToolsExtensions();
+  const installed = win.webContents.session.getAllExtensions();
   const { default: install } = require('electron-devtools-installer'); // eslint-disable-line global-require
   const extensions = Object.entries(devtools)
     .reduce((list, [name, { id, version }]) => {
