@@ -70,5 +70,8 @@ package-lock.json
 # Mac
 .DS_Store
 
+# Node Version Manager
+.nvmrc
+
 # SQLite
 *.db
