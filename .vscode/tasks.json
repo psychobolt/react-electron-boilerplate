@@ -32,7 +32,7 @@
     {
       "label": "npm: debug-apollo",
       "type": "shell",
-      "command": "npm run apollo -- --fork=--inspect-brk=9229",
+      "command": "npm run apollo -- --fork=--inspect=9229",
       "isBackground": true,
       // This task is run before some debug tasks.
       // Problem is, it's a watch script, and since it never exits, VSCode

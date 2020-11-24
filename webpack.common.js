@@ -43,7 +43,7 @@ if (isDevMode) {
       rules: [
         {
           test: /\.js$/,
-          exclude: /node_modules\/(@apollographql\/graphql-playground-html|graphql-tools|graphql-subscriptions|deprecated-decorator|subscriptions-transport-ws)/,
+          exclude: /node_modules\/(@apollographql\/graphql-playground-html|graphql-tools|graphql-subscriptions|deprecated-decorator|subscriptions-transport-ws|@apollo\/client)/,
           use: ['source-map-loader'],
           enforce: 'pre',
         },
