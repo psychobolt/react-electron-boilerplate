@@ -5,7 +5,7 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 import CommonConfig from './webpack.common';
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development' ? 'true' : 'false';
 
 let config = {
   entry: ['./src/main.js'],
@@ -15,7 +15,7 @@ let config = {
     hotUpdateMainFilename: 'main.[hash].hot-update.json',
   },
   node: {
-    __dirname: true,
+    __dirname: false,
   },
   target: 'electron-main',
   plugins: [
@@ -28,7 +28,7 @@ let config = {
       ],
     }),
     new webpack.EnvironmentPlugin({
-      SKIP_SPLASH: process.env.SKIP_SPLASH || false,
+      SKIP_SPLASH: process.env.SKIP_SPLASH || 'false',
       DEBUG_MAIN: process.env.DEBUG_MAIN || isDev,
     }),
   ],
