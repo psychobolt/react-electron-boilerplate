@@ -30,7 +30,7 @@ let config = {
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'src', '.build'),
-    publicPath: process.env.ASSET_PATH || '/',
+    publicPath: './',
   },
   target: 'electron-renderer',
   module: {
